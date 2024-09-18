@@ -1,0 +1,11 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 1200px) {
+  .home-container {
+    max-width: 970px;
+  }
+}
