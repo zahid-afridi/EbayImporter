@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { fileHomeImage } from "../assets"; // Ensure correct image path
 import { Button, Stack } from "@mui/material";
 import {
@@ -6,9 +6,14 @@ import {
   BatchPredictionOutlined,
   HelpOutlineOutlined,
   ChatOutlined,
+  TextFields,
 } from "@mui/icons-material";
 
 const Index = () => {
+  const [btnInit, setButtonInit] = useState(1);
+  console.log({ btnInit });
+
+  const onBtnPress = () => setButtonInit((pre) => pre + 1);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,29 +66,61 @@ const Index = () => {
           <img className="homeImage mb-4" src={fileHomeImage} alt="Home" />
           <article className="text-wrap mb-4">
             <h3 className="font-bold text-black text-center mb-2">
-              Welcome to Amazon Product Importer!
+              {btnInit == 1
+                ? "Welcome to EbayProduct Importer!"
+                : btnInit == 2
+                ? "Copy the Ebayproduct link"
+                : "Import your first Ebayproduct"}
             </h3>
             <p className="mb-3">
-              Let's start with a quick product tour, and you'll be up and
-              running in no time!
+              {btnInit == 1
+                ? "Let's start with a quick product tour, and you'll be up and running in no time!"
+                : btnInit == 2
+                ? "Navigate to Ebayand copy the link of the desired product you wish to sell."
+                : "Paste the copied Ebaylink into the search bar and click import."}
             </p>
           </article>
-          <Button
-            sx={{
-              backgroundColor: "#4caf50", // Green color as in the image
-              borderRadius: "30px", // Rounded button
-              height: "40px",
-              padding: "0 25px",
-              fontSize: "14px",
-              color: "#fff",
-              "&:hover": {
-                backgroundColor: "#45a049",
-              },
-            }}
-            variant="contained"
-          >
-            Start
-          </Button>
+
+          {btnInit == 3 ? (
+            <div className="flex flex-row ">
+              <input placeholder="put your link here" />
+              <Button
+                onClick={onBtnPress}
+                sx={{
+                  backgroundColor: "#4caf50",
+                  borderRadius: "10px",
+                  height: "30px",
+                  padding: "0 10px",
+                  fontSize: "14px",
+                  color: "#fff",
+                  "&:hover": {
+                    backgroundColor: "#45a049",
+                  },
+                }}
+                variant="contained"
+              >
+                {btnInit == 1 ? "Start" : btnInit == 2 ? "next" : "import"}
+              </Button>
+            </div>
+          ) : (
+            <Button
+              onClick={onBtnPress}
+              sx={{
+                backgroundColor: "#4caf50",
+                borderRadius: "10px",
+                height: "30px",
+                padding: "0 10px",
+                fontSize: "14px",
+                color: "#fff",
+                "&:hover": {
+                  backgroundColor: "#45a049",
+                },
+              }}
+              variant="contained"
+            >
+              {btnInit == 1 ? "Start" : btnInit == 2 ? "next" : "import"}
+            </Button>
+          )}
         </div>
       </div>
       <footer className="text-center mt-4">
