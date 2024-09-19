@@ -1,4 +1,5 @@
 import App from "./App";
+
 import { createRoot } from "react-dom/client";
 import { initI18n } from "./utils/i18nUtils";
 

@@ -8,6 +8,7 @@ import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import PrivacyWebhookHandlers from "./privacy.js";
 
+
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
   10
@@ -19,6 +20,8 @@ const STATIC_PATH =
     : `${process.cwd()}/frontend/`;
 
 const app = express();
+
+// mongo db connection 
 
 // Set up Shopify authentication and webhook handling
 app.get(shopify.config.auth.path, shopify.auth.begin());
