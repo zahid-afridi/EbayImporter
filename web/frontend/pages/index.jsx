@@ -26,7 +26,21 @@ const Index = () => {
     };
     fetchData();
   }, []);
+     useEffect(()=>{
+         const Product=async()=>{
+          try {
+            const url='https://www.ebay.com/itm/126676155024?_trkparms=amclksrc%3DITM%26aid%3D777008%26algo%3DPERSONAL.TOPIC%26ao%3D1%26asc%3D20230823115209%26meid%3Dcb9e9c370ba84f3fa1c4aa360566088b%26pid%3D101800%26rk%3D1%26rkt%3D1%26itm%3D126676155024%26pmt%3D0%26noa%3D1%26pg%3D4375194%26algv%3DRecentlyViewedItemsV2SignedOut%26brand%3DRolex&_trksid=p4375194.c101800.m5481&_trkparms=parentrq%3A0a162d2e1920ab4a93ba7c10fffeced2%7Cpageci%3A15d49411-767c-11ef-b89f-42713b554772%7Ciid%3A1%7Cvlpname%3Avlp_homepage'
+               const response= await fetch(`/api/importProduct?url=${url}`)
+               const data=await response.json()
+               console.log('product data',data)
 
+          } catch (error) {
+            console.log(error)
+            
+          }
+         }
+         Product()
+     },[])
   return (
     <div className="container center">
       <div className="container-sm home-container mt-3">

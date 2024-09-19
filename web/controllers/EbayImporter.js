@@ -3,10 +3,11 @@ import axios from "axios"
 
 const Productimport=async(req,res)=>{
     try {
-        const {url}=req.query;
+        const {url}= req.query;
+        console.log('url',url)
         const response= await  axios.get(`https://real-time-ebay-data.p.rapidapi.com/product_get.php?url=${url}`,{
             headers:{
-                'x-rapidapi-key': '9e6f0292edmsh18de09964866e71p170c7bjsn0e9f68d91a81',
+                'x-rapidapi-key': 'f6527393b9mshd504eeefdcf0295p1e3677jsn68d3944d1118',
 'x-rapidapi-host': 'real-time-ebay-data.p.rapidapi.com'
            }
         });
