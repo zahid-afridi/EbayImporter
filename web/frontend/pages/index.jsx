@@ -9,10 +9,14 @@ import {
   ChatOutlined,
   TextFields,
 } from "@mui/icons-material";
+import { HomeProductModal } from "../components";
 
 const Index = () => {
   const [btnInit, setButtonInit] = useState(1);
   const [inputValue, setInputValue] = useState("");
+  const [modal, setModal] = useState({
+    visible: true,
+  });
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -144,6 +148,16 @@ const Index = () => {
           support@reputon.com
         </a>
       </footer>
+      <Button onClick={() => setModal({ visible: true })}>open</Button>
+      <HomeProductModal
+        open={modal.visible}
+        title={"title"}
+        des={
+          "Use Instagram posts to share your products with millions ofpeople. Let shoppers buy from your store without leavingInstagram."
+        }
+        price={"200"}
+        onClose={() => setModal({ visible: false })}
+      />
     </div>
   );
 };
