@@ -4,11 +4,11 @@ import { NavMenu } from "@shopify/app-bridge-react";
 import Routes from "./Routes";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap//dist/js/bootstrap.bundle.min.js";
-import './style.css'
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import "./style.css";
+
+import "@fontsource/poppins"; // Defaults to weight 400
+import "@fontsource/poppins/400.css"; // Specify weight
+import "@fontsource/poppins/400-italic.css"; // Specify weight and style
 
 import { QueryProvider, PolarisProvider } from "./components";
 

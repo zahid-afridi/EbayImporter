@@ -2,11 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Poppins";
+}
 
 .center {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.homeImage {
+  width: 130px;
+  height: 130px;
+  border-radius: 100px;
+  margin: 30px 0;
 }
 
 @media (min-width: 1200px) {
