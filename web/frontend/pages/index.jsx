@@ -6,7 +6,7 @@ const index = () => {
   return (
     <div className="container center ">
       <div className="container-sm home-container mt-3">
-        <h1 className=" text-3xl font-bold ">Product</h1>
+        <h1 className=" text-3xl font-bold underline">Product</h1>
         <div className="">
           <img src="" alt="" />
           <article className="text-wrap ...">
