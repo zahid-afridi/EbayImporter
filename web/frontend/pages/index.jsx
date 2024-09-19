@@ -40,7 +40,7 @@ const Index = () => {
       }
     }
 
-    console.log({ inputValue });
+  
   };
   return (
     <div className="container center">

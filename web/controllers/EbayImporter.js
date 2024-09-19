@@ -7,7 +7,7 @@ const Productimport=async(req,res)=>{
         console.log('url',url)
         const response= await  axios.get(`https://real-time-ebay-data.p.rapidapi.com/product_get.php?url=${url}`,{
             headers:{
-                'x-rapidapi-key': 'f6527393b9mshd504eeefdcf0295p1e3677jsn68d3944d1118',
+                'x-rapidapi-key': '0d29b0d933msh951001d97ed9f10p10bd94jsn6e32f11d4a4d',
 'x-rapidapi-host': 'real-time-ebay-data.p.rapidapi.com'
            }
         });
