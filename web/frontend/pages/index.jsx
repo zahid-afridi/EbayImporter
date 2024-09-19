@@ -12,10 +12,12 @@ import {
 import { HomeProductModal } from "../components";
 
 const Index = () => {
+  const [load, setLoad] = useState(false);
   const [btnInit, setButtonInit] = useState(1);
   const [inputValue, setInputValue] = useState("");
   const [modal, setModal] = useState({
-    visible: true,
+    visible: false,
+    data: {},
   });
 
   // useEffect(() => {
@@ -32,19 +34,25 @@ const Index = () => {
   // }, []);
 
   const onBtnPress = async () => {
+    setLoad(true);
     if (inputValue == "") {
       alert("empity");
     } else {
       try {
-        const response = await fetch(`/api/importProduct?url=${inputValue}`);
-        const data = await response.json();
-        console.log("product data", data);
+        inputValue.trim();
+        const res = await fetch(`/api/importProduct?url=${inputValue}`);
+        const data = await res.json();
+        console.log({ res, data });
+        if (res.status == 200) {
+          setLoad(false);
+
+          setModal({ visible: true, data: data.product.body });
+        }
       } catch (error) {
+        setLoad(false);
         console.log(error);
       }
     }
-
-  
   };
   return (
     <div className="container center">
@@ -119,7 +127,7 @@ const Index = () => {
                 }}
                 variant="contained"
               >
-                import
+                {load ? "Loading..." : "import"}
               </Button>
             </div>
           ) : (
@@ -148,14 +156,11 @@ const Index = () => {
           support@reputon.com
         </a>
       </footer>
-      <Button onClick={() => setModal({ visible: true })}>open</Button>
       <HomeProductModal
         open={modal.visible}
-        title={"title"}
-        des={
-          "Use Instagram posts to share your products with millions ofpeople. Let shoppers buy from your store without leavingInstagram."
-        }
-        price={"200"}
+        title={modal.data.title}
+        des={modal.data.title}
+        price={modal.data.title}
         onClose={() => setModal({ visible: false })}
       />
     </div>
