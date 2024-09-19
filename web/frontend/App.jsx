@@ -11,10 +11,21 @@ import "@fontsource/poppins/400.css"; // Specify weight
 import "@fontsource/poppins/400-italic.css"; // Specify weight and style
 
 import { QueryProvider, PolarisProvider } from "./components";
+import { useEffect } from "react";
 
 export default function App() {
-  // Any .tsx or .jsx files in /pages will become a route
-  // See documentation for <Routes /> for more info
+  useEffect(()=>{
+    const StoreInfo=async()=>{
+      try {
+           const response=await fetch('/api/store/info')
+           const data=await response.json()
+           console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    StoreInfo()
+  },[])
   const pages = import.meta.glob("./pages/**/!(*.test.[jt]sx)*.([jt]sx)", {
     eager: true,
   });
@@ -26,7 +37,7 @@ export default function App() {
         <QueryProvider>
           <NavMenu>
             <a href="/" rel="home" />
-            <a href="/pagename">{t("NavigationMenu.pageName")}</a>
+            
           </NavMenu>
           <Routes pages={pages} />
         </QueryProvider>

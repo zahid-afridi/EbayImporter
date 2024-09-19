@@ -8,6 +8,8 @@ import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import PrivacyWebhookHandlers from "./privacy.js";
 import EabyImporterRoutes from "./routes/EbayImporter.js";
+import DbCon from "./libs/db.js";
+import StoreModel from "./models/Store.js";
 
 
 const PORT = parseInt(
@@ -23,6 +25,7 @@ const STATIC_PATH =
 const app = express();
 
 // mongo db connection 
+DbCon()
 
 // Set up Shopify authentication and webhook handling
 app.get(shopify.config.auth.path, shopify.auth.begin());
@@ -72,6 +75,41 @@ app.post("/api/products", async (_req, res) => {
   }
   res.status(status).send({ success: status === 200, error });
 });
+
+// store info api 
+app.get('/api/store/info', async (req, res) => {
+  try {
+    const Store = await shopify.api.rest.Shop.all({
+      session: res.locals.shopify.session,
+    });
+    // console.log("Storename",Store.data[0].domain)
+      console.log('Store Information',Store)
+    if (Store && Store.data && Store.data.length > 0) {
+      const storeName = Store.data[0].name;
+      const domain = Store.data[0].domain;
+      const country=Store.data[0].country;
+     
+
+      // Check if storeName exists in the database
+      const existingStore = await StoreModel.findOne({ storeName });
+
+      if (!existingStore) {
+        // If it doesn't exist, save it
+        const newStore = new StoreModel({ storeName,domain,country });
+        await newStore.save();
+      }
+
+      // Send response with existingStore only
+      res.status(200).json(existingStore); // Send existingStore directly in the response
+    } else {
+      res.status(404).json({ message: 'Store not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server Error" });
+  }
+});
+// store info api end
 
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
