@@ -12,6 +12,10 @@ const StoreSchema= new mongoose.Schema({
     country:{
         type:String,
         
+    },
+    Store_Id:{
+        type:String,
+        required:true
     }
 },{timestamps:true})
 

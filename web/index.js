@@ -88,6 +88,7 @@ app.get('/api/store/info', async (req, res) => {
       const storeName = Store.data[0].name;
       const domain = Store.data[0].domain;
       const country=Store.data[0].country;
+      const Store_Id=Store.data[0].id
      
 
       // Check if storeName exists in the database
@@ -95,7 +96,7 @@ app.get('/api/store/info', async (req, res) => {
 
       if (!existingStore) {
         // If it doesn't exist, save it
-        const newStore = new StoreModel({ storeName,domain,country });
+        const newStore = new StoreModel({ storeName,domain,country,Store_Id });
         await newStore.save();
       }
 
