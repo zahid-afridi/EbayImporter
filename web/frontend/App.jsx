@@ -12,19 +12,32 @@ import "@fontsource/poppins/400-italic.css"; // Specify weight and style
 
 import { QueryProvider, PolarisProvider } from "./components";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { UpdateStoreDetail } from "./redux/UserStoreSlice";
 
 export default function App() {
+  const dispatch = useDispatch();
+  const StoreData = useSelector((state) => state.StoreInfo.StoreDetail);
+  console.log('Store data form redux',StoreData)
+
   useEffect(()=>{
-    const StoreInfo=async()=>{
-      try {
-           const response=await fetch('/api/store/info')
-           const data=await response.json()
-           console.log(data)
-      } catch (error) {
-        console.log(error)
-      }
+if (!StoreData) {
+  const StoreInfo=async()=>{
+    try {
+         const response=await fetch('/api/store/info')
+         const data=await response.json()
+         if (response.status==200) {
+         console.log('Sotre data form api ',data)
+         dispatch(UpdateStoreDetail(data));
+
+         }
+    } catch (error) {
+      console.log(error)
     }
-    StoreInfo()
+  }
+  StoreInfo()
+}
   },[])
   const pages = import.meta.glob("./pages/**/!(*.test.[jt]sx)*.([jt]sx)", {
     eager: true,
@@ -33,7 +46,7 @@ export default function App() {
 
   return (
     <PolarisProvider>
-      <BrowserRouter>
+  
         <QueryProvider>
           <NavMenu>
             <a href="/" rel="home" />
@@ -41,7 +54,7 @@ export default function App() {
           </NavMenu>
           <Routes pages={pages} />
         </QueryProvider>
-      </BrowserRouter>
+  
     </PolarisProvider>
   );
 }

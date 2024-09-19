@@ -47,7 +47,7 @@ const Index = () => {
         </div>
         <div className="center border rounded-xl mt-3 py-24 bg-white">
           <img className="homeImage" src={fileHomeImage} alt="" />
-          <article class="text-wrap">
+          <article className="text-wrap">
             <h3 className="font-bold text-black text-center mb-2 ">
               Welcome to Ebay importer
             </h3>
