@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography } from "@mui/material";
 import { fileHomeImage } from "../assets";
 import { Button } from "@shopify/polaris";
 
 const index = () => {
+  useEffect(()=>{
+          const test=async()=>{
+            try {
+                    const resposse= await fetch('/api/test')
+                    const data= await resposse.json()
+                    console.log(data)
+            } catch (error) {
+              console.log(error)
+            }
+          }
+          test()
+  })
   return (
     <div className="container center ">
       <div className="container-sm home-container mt-3">
