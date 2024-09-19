@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { fileHomeImage } from "../assets"; // Ensure correct image path
+
+import { fileHomeImage } from "../assets";
 import { Button, Stack } from "@mui/material";
 import {
   SettingsOutlined,
@@ -11,42 +12,42 @@ import {
 
 const Index = () => {
   const [btnInit, setButtonInit] = useState(1);
-  console.log({ btnInit });
+  const [inputValue, setInputValue] = useState("");
 
-  const onBtnPress = () => setButtonInit((pre) => pre + 1);
-  useEffect(() => {
-    const fetchData = async () => {
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch("/api/test");
+  //       const data = await response.json();
+  //       console.log(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
+  const onBtnPress = async () => {
+    if (inputValue == "") {
+      alert("empity");
+    } else {
       try {
-        const response = await fetch("/api/test");
+        const response = await fetch(`/api/importProduct?url=${inputValue}`);
         const data = await response.json();
-        console.log(data);
+        console.log("product data", data);
       } catch (error) {
         console.log(error);
       }
-    };
-    fetchData();
-  }, []);
-     useEffect(()=>{
-         const Product=async()=>{
-          try {
-            const url='https://www.ebay.com/itm/126676155024?_trkparms=amclksrc%3DITM%26aid%3D777008%26algo%3DPERSONAL.TOPIC%26ao%3D1%26asc%3D20230823115209%26meid%3Dcb9e9c370ba84f3fa1c4aa360566088b%26pid%3D101800%26rk%3D1%26rkt%3D1%26itm%3D126676155024%26pmt%3D0%26noa%3D1%26pg%3D4375194%26algv%3DRecentlyViewedItemsV2SignedOut%26brand%3DRolex&_trksid=p4375194.c101800.m5481&_trkparms=parentrq%3A0a162d2e1920ab4a93ba7c10fffeced2%7Cpageci%3A15d49411-767c-11ef-b89f-42713b554772%7Ciid%3A1%7Cvlpname%3Avlp_homepage'
-               const response= await fetch(`/api/importProduct?url=${url}`)
-               const data=await response.json()
-               console.log('product data',data)
+    }
 
-          } catch (error) {
-            console.log(error)
-            
-          }
-         }
-         Product()
-     },[])
+    console.log({ inputValue });
+  };
   return (
     <div className="container center">
       <div className="container-sm home-container mt-3">
         <div className="flex flex-row justify-between items-center">
           <h1 className="text-black text-2xl font-bold">Products</h1>
-          <Stack spacing={2} direction="row">
+          <Stack className="flex-wrap" spacing={2} direction="row">
             {[
               { name: "Settings", icon: SettingsOutlined },
               { name: "Plans", icon: BatchPredictionOutlined },
@@ -64,9 +65,6 @@ const Index = () => {
                   padding: "0 10px",
                   textTransform: "none",
                   fontSize: "12px",
-                  "&:hover": {
-                    backgroundColor: "#f0f0f0",
-                  },
                 }}
                 variant="outlined"
                 key={item.name}
@@ -81,25 +79,31 @@ const Index = () => {
           <article className="text-wrap mb-4">
             <h3 className="font-bold text-black text-center mb-2">
               {btnInit == 1
-                ? "Welcome to EbayProduct Importer!"
+                ? "Welcome to Ebay Product Importer!"
                 : btnInit == 2
-                ? "Copy the Ebayproduct link"
-                : "Import your first Ebayproduct"}
+                ? "Copy the Ebay product link"
+                : "Import your first Ebay product"}
             </h3>
             <p className="mb-3">
               {btnInit == 1
                 ? "Let's start with a quick product tour, and you'll be up and running in no time!"
                 : btnInit == 2
-                ? "Navigate to Ebayand copy the link of the desired product you wish to sell."
-                : "Paste the copied Ebaylink into the search bar and click import."}
+                ? "Navigate to Ebay and copy the link of the desired product you wish to sell."
+                : "Paste the copied Ebay link into the search bar and click import."}
             </p>
           </article>
 
           {btnInit == 3 ? (
-            <div className="flex flex-row ">
-              <input placeholder="put your link here" />
+            <div className="flex flex-row items-center flex-wrap">
+              <input
+                value={inputValue}
+                placeholder="Ebay Import link"
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+
               <Button
                 onClick={onBtnPress}
+                className="bg-green-700"
                 sx={{
                   backgroundColor: "#4caf50",
                   borderRadius: "10px",
@@ -107,18 +111,16 @@ const Index = () => {
                   padding: "0 10px",
                   fontSize: "14px",
                   color: "#fff",
-                  "&:hover": {
-                    backgroundColor: "#45a049",
-                  },
+                  marginLeft: "5px",
                 }}
                 variant="contained"
               >
-                {btnInit == 1 ? "Start" : btnInit == 2 ? "next" : "import"}
+                import
               </Button>
             </div>
           ) : (
             <Button
-              onClick={onBtnPress}
+              onClick={() => setButtonInit((pre) => pre + 1)}
               sx={{
                 backgroundColor: "#4caf50",
                 borderRadius: "10px",
@@ -126,20 +128,20 @@ const Index = () => {
                 padding: "0 10px",
                 fontSize: "14px",
                 color: "#fff",
-                "&:hover": {
-                  backgroundColor: "#45a049",
-                },
               }}
               variant="contained"
             >
-              {btnInit == 1 ? "Start" : btnInit == 2 ? "next" : "import"}
+              {btnInit == 1 ? "Start" : "next"}
             </Button>
           )}
         </div>
       </div>
+
       <footer className="text-center mt-4">
+        <span>Email us:</span>
         <a href="mailto:support@reputon.com" className="text-blue-500">
-          Email us: support@reputon.com
+          {" "}
+          support@reputon.com
         </a>
       </footer>
     </div>
