@@ -83,7 +83,7 @@ app.get('/api/store/info', async (req, res) => {
       session: res.locals.shopify.session,
     });
     // console.log("Storename",Store.data[0].domain)
-      console.log('Store Information',Store)
+      // console.log('Store Information',Store)
     if (Store && Store.data && Store.data.length > 0) {
       const storeName = Store.data[0].name;
       const domain = Store.data[0].domain;
