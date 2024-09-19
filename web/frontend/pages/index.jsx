@@ -64,7 +64,8 @@ const Index = () => {
               Welcome to Amazon Product Importer!
             </h3>
             <p className="mb-3">
-              Let's start with a quick product tour, and you'll be up and running in no time!
+              Let's start with a quick product tour, and you'll be up and
+              running in no time!
             </p>
           </article>
           <Button
