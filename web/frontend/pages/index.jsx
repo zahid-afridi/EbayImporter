@@ -28,7 +28,7 @@ const Index = () => {
             </h3>
             <p className="mb-5">New Yorkers are facing the winter chill...</p>
           </article>
-          <Button tone="critical" className="bg-green-600" size="micro">
+          <Button tone="critical" primary  size="micro">
             Start
           </Button>
         </div>
