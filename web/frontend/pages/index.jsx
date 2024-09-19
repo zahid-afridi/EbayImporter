@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { fileHomeImage } from "../assets";
 import { ButtonGroup } from "@shopify/polaris";
 import { Button, Stack } from "@mui/material";
-
+import {
+  SettingsOutlined,
+  BatchPredictionOutlined,
+  HelpOutlineOutlined,
+  ChatOutlined,
+} from "@mui/icons-material";
 const Index = () => {
   useEffect(() => {
     const fetchData = async () => {
@@ -23,8 +28,18 @@ const Index = () => {
         <div className="flex flex-row justify-between">
           <h1 className="text-black text-2xl font-bold">Product</h1>
           <Stack spacing={2} direction="row">
-            {[{ name: "setting" }, { name: "plan" }].map((item) => (
-              <Button className="h-7" variant="outlined" key={item.name}>
+            {[
+              { name: "setting", icon: SettingsOutlined },
+              { name: "plan", icon: BatchPredictionOutlined },
+              { name: "Support", icon: ChatOutlined },
+              { name: "FAQs", icon: HelpOutlineOutlined },
+            ].map((item) => (
+              <Button
+                startIcon={<item.icon fontSize="10" />}
+                className="h-7 bg-white text-black border-black text-xs p-2"
+                variant="outlined"
+                key={item.name}
+              >
                 {item.name}
               </Button>
             ))}
