@@ -6,11 +6,11 @@ const index = () => {
   return (
     <div className="container center ">
       <div className="container-sm home-container mt-3">
-        <h1 className="text-red-500 text-3xl font-bold underline">Product</h1>
-        <div className="bg-slate-900">
+        <h1 className=" text-3xl font-bold ">Product</h1>
+        <div className="">
           <img src="" alt="" />
-          <article class="text-wrap ...">
-            <h3>Beloved Manhattan soup stand closes</h3>
+          <article className="text-wrap ...">
+            <h3 className="display  ">Beloved Manhattan soup stand closes</h3>
             <p>New Yorkers are facing the winter chill...</p>
           </article>
         </div>
