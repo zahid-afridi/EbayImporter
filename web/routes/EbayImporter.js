@@ -3,6 +3,6 @@ import Productimport from "../controllers/EbayImporter.js";
 
 const EabyImporterRoutes=express.Router()
 
-EabyImporterRoutes.get('/test',Productimport)
+EabyImporterRoutes.get('/importProduct',Productimport)
 
 export default EabyImporterRoutes
