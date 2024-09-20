@@ -12,6 +12,7 @@ import { QueryProvider, PolarisProvider } from "./components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreInfo } from "./redux/query/user";
+import Spinner from "./components/Spinner";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export default function App() {
   
 
   return (
-         load ? "Loading...":(
+         load ? <Spinner/>:(
           <PolarisProvider>
           <QueryProvider>
             <NavMenu>
