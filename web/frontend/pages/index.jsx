@@ -54,6 +54,15 @@ const Index = () => {
       }
     }
   };
+
+  const btnProp = {
+    backgroundColor: "#4caf50",
+    borderRadius: "10px",
+    height: "30px",
+    padding: "0 10px",
+    fontSize: "14px",
+    color: "#fff",
+  };
   return (
     <div className="container center">
       <div className="container-sm home-container mt-3">
@@ -108,6 +117,7 @@ const Index = () => {
           {btnInit == 3 ? (
             <div className="flex flex-row items-center flex-wrap">
               <input
+                className="border px-1 py-1 rounded-lg border-gray-400 focus:border-green-300 focus:outline-none focus:ring-2 focus:ring-green-400"
                 value={inputValue}
                 placeholder="Ebay Import link"
                 onChange={(e) => setInputValue(e.target.value)}
@@ -117,12 +127,7 @@ const Index = () => {
                 onClick={onBtnPress}
                 className="bg-green-700"
                 sx={{
-                  backgroundColor: "#4caf50",
-                  borderRadius: "10px",
-                  height: "30px",
-                  padding: "0 10px",
-                  fontSize: "14px",
-                  color: "#fff",
+                  ...btnProp,
                   marginLeft: "5px",
                 }}
                 variant="contained"
@@ -133,14 +138,7 @@ const Index = () => {
           ) : (
             <Button
               onClick={() => setButtonInit((pre) => pre + 1)}
-              sx={{
-                backgroundColor: "#4caf50",
-                borderRadius: "10px",
-                height: "30px",
-                padding: "0 10px",
-                fontSize: "14px",
-                color: "#fff",
-              }}
+              sx={btnProp}
               variant="contained"
             >
               {btnInit == 1 ? "Start" : "next"}

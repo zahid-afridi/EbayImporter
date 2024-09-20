@@ -14,31 +14,30 @@ import { QueryProvider, PolarisProvider } from "./components";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { UpdateStoreDetail } from "./redux/UserStoreSlice";
+import { UpdateStoreDetail } from "./redux/Slices/user/UserStoreSlice";
 
 export default function App() {
   const dispatch = useDispatch();
   const StoreData = useSelector((state) => state.StoreInfo.StoreDetail);
-  console.log('Store data form redux',StoreData)
+  console.log("Store data form redux", StoreData);
 
-  useEffect(()=>{
-if (!StoreData) {
-  const StoreInfo=async()=>{
-    try {
-         const response=await fetch('/api/store/info')
-         const data=await response.json()
-         if (response.status==200) {
-         console.log('Sotre data form api ',data)
-         dispatch(UpdateStoreDetail(data));
-
-         }
-    } catch (error) {
-      console.log(error)
+  useEffect(() => {
+    if (!StoreData) {
+      const StoreInfo = async () => {
+        try {
+          const response = await fetch("/api/store/info");
+          const data = await response.json();
+          if (response.status == 200) {
+            console.log("Sotre data form api ", data);
+            dispatch(UpdateStoreDetail(data));
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      StoreInfo();
     }
-  }
-  StoreInfo()
-}
-  },[])
+  }, []);
   const pages = import.meta.glob("./pages/**/!(*.test.[jt]sx)*.([jt]sx)", {
     eager: true,
   });
@@ -46,15 +45,12 @@ if (!StoreData) {
 
   return (
     <PolarisProvider>
-  
-        <QueryProvider>
-          <NavMenu>
-            <a href="/" rel="home" />
-            
-          </NavMenu>
-          <Routes pages={pages} />
-        </QueryProvider>
-  
+      <QueryProvider>
+        <NavMenu>
+          <a href="/" rel="home" />
+        </NavMenu>
+        <Routes pages={pages} />
+      </QueryProvider>
     </PolarisProvider>
   );
 }
