@@ -8,38 +8,43 @@ import "@fontsource/poppins";
 import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/400-italic.css";
 
-import { QueryProvider, PolarisProvider } from "./components";
+import { QueryProvider, PolarisProvider, Spinner } from "./components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreInfo } from "./redux/query/user";
-import Spinner from "./components/Spinner";
 
-export default function App() {
+const App = () => {
   const dispatch = useDispatch();
-  const [load,setLoad]=useState(false)
-  const StoreData = useSelector((state) => state.StoreInfo.StoreDetail);
-  console.log("Store data form redux", StoreData);
+  const [load, setLoad] = useState(false);
+  const { StoreDetail } = useSelector((state) => state.StoreInfo);
+  console.log("Store data form redux", StoreDetail);
 
   useEffect(() => {
-    if (!StoreData) {
+    if (!StoreDetail) {
       dispatch(StoreInfo(setLoad));
     }
   }, []);
   const pages = import.meta.glob("./pages/**/!(*.test.[jt]sx)*.([jt]sx)", {
     eager: true,
   });
-  
 
-  return (
-         load ? <Spinner/>:(
-          <PolarisProvider>
-          <QueryProvider>
-            <NavMenu>
-              <a href="/" rel="home" />
-            </NavMenu>
-            <Routes pages={pages} />
-          </QueryProvider>
-        </PolarisProvider>
-         )
+  return load ? (
+    <Spinner />
+  ) : (
+    <PolarisProvider>
+      <QueryProvider>
+        <NavMenu>
+          {[
+            { href: "/", rel: "home" },
+            { href: "/products", rel: "Products" },
+          ].map((item) => (
+            <a href="/" rel="home" />
+          ))}
+        </NavMenu>
+        <Routes pages={pages} />
+      </QueryProvider>
+    </PolarisProvider>
   );
-}
+};
+
+export default App;
