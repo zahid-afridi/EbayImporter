@@ -115,7 +115,7 @@ const Index = () => {
           </article>
 
           {btnInit == 3 ? (
-            <div className="flex flex-row items-center flex-wrap">
+            <div className="flex flex-row flex-wrap justify-center">
               <input
                 className="border px-1 py-1 rounded-lg border-gray-400 focus:border-green-300 focus:outline-none focus:ring-2 focus:ring-green-400"
                 value={inputValue}
