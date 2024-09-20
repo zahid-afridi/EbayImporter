@@ -100,7 +100,7 @@ const Index = () => {
           <article className="text-wrap mb-4">
             <h3 className="font-bold text-black text-center mb-2">
               {btnInit == 1
-                ? "Welcome to Ebay Product Importer!"
+                ? "Welcome to Shafs Ebay Affiliate Importer!"
                 : btnInit == 2
                 ? "Copy the Ebay product link"
                 : "Import your first Ebay product"}
