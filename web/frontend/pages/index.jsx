@@ -9,9 +9,12 @@ import {
   ChatOutlined,
   TextFields,
 } from "@mui/icons-material";
+
+
 import { HomeProductModal } from "../components";
 
 const Index = () => {
+  
   const [load, setLoad] = useState(false);
   const [btnInit, setButtonInit] = useState(1);
   const [inputValue, setInputValue] = useState("");
