@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { horzImg, vertImg } from "../assets";
 import { ProductsCard } from "../components";
 // import { productApi } from "../redux/query/user";
-import { ProductApi } from "../redux/query/user";
+
 import { useDispatch, useSelector } from "react-redux";
+import { ProductApi } from "../redux/query/user";
 const Products = () => {
   const dispatch = useDispatch();
   const { productData } = useSelector((state) => state.product);
@@ -17,16 +18,18 @@ const Products = () => {
   }, []);
 
   useEffect(()=>{
-const getProduct=async()=>{
-  try {
-    const response = await fetch(`/api/products/getProduct?shop_id=${StoreDetail.Store_Id}`);
-      const data = await response.json();
-       console.log('MYProducts',data)
-  } catch (error) {
-    console.log(error)
-  }
-}
-getProduct()
+// const getProduct=async()=>{
+//   try {
+//     const response = await fetch(`/api/products/getProduct?shop_id=${StoreDetail.Store_Id}`);
+//       const data = await response.json();
+//        console.log('MYProducts',data)
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+// getProduct()
+dispatch(ProductApi(StoreDetail.Store_Id)); 
+
   },[])
 
   return (
