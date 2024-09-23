@@ -150,16 +150,18 @@ const Index = () => {
       <footer className="text-center mt-4">
         <span>Email us:</span>
         <a href="mailto:support@reputon.com" className="text-blue-500">
-          {" "}
           support@reputon.com
         </a>
       </footer>
       <HomeProductModal
         open={modal.visible}
-        title={modal.data.title}
-        des={modal.data.description}
-        price={modal.data.price.value}
-        image={modal.data.mainImage}
+        title={modal.data?.title || "title"}
+        des={modal.data?.description || "description"}
+        price={modal.data?.price?.value || "price"}
+        image={
+          modal.data?.mainImage ||
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+        }
         onClose={() => setModal({ visible: false })}
       />
     </div>
