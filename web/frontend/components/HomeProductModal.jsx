@@ -8,6 +8,7 @@ export const HomeProductModal = ({
   des,
   price,
   title,
+  image
 }) => {
   return (
     <div>
@@ -26,7 +27,7 @@ export const HomeProductModal = ({
             <div className="flex flex-wrap ">
               <img
                 className="w-2/4"
-                src="https://cdn.britannica.com/91/81291-050-1CDF67EB/house-mouse.jpg?w=400&h=300&c=crop"
+                src={image}
               />
               <div>
                 <p className="my-3 font-bold">price: {price}</p>

@@ -157,8 +157,9 @@ const Index = () => {
       <HomeProductModal
         open={modal.visible}
         title={modal.data.title}
-        des={modal.data.title}
-        price={modal.data.title}
+        des={modal.data.description}
+        price={modal.data.price.value}
+        image={modal.data.mainImage}
         onClose={() => setModal({ visible: false })}
       />
     </div>
