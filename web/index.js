@@ -10,6 +10,7 @@ import PrivacyWebhookHandlers from "./privacy.js";
 import EabyImporterRoutes from "./routes/EbayImporter.js";
 import DbCon from "./libs/db.js";
 import StoreModel from "./models/Store.js";
+import ProductRoutes from "./routes/Product.js";
 
 
 const PORT = parseInt(
@@ -46,6 +47,7 @@ app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
 app.use('/api',EabyImporterRoutes)
+app.use('/api/products',ProductRoutes)
 app.get("/api/products/count", async (_req, res) => {
   const client = new shopify.api.clients.Graphql({
     session: res.locals.shopify.session,

@@ -38,7 +38,7 @@ const Productimport=async(req,res)=>{
         console.log('error',error)
         res.status(500).json({
             status: 'error',
-            message: 'Sorry! It\'s taking longer time to get data please try again!'
+            message: 'Internal server error'
         });
     }
     }

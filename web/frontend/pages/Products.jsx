@@ -10,10 +10,24 @@ const Products = () => {
   const [stl, setStl] = useState(1);
   console.log({ productData });
   const [load, setLoad] = useState(true);
+  const StoreDetail = useSelector((state) => state.StoreSlice.StoreDetail);
 
   useEffect(() => {
     dispatch(ProductApi(setLoad));
   }, []);
+
+  useEffect(()=>{
+const getProduct=async()=>{
+  try {
+    const response = await fetch(`/api/products/getProduct?shop_id=${StoreDetail.Store_Id}`);
+      const data = await response.json();
+       console.log('MYProducts',data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+getProduct()
+  },[])
 
   return (
     <div>
