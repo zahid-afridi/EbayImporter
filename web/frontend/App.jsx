@@ -34,9 +34,8 @@ const App = () => {
     <PolarisProvider>
       <QueryProvider>
         <NavMenu>
-        <a href="/" rel="home" />
-        
-        <a href="/Products">{'Products'}</a>
+          <a href="/" rel="home" />
+          <a href="/Products">{"Products"}</a>
         </NavMenu>
         <Routes pages={pages} />
       </QueryProvider>

@@ -8,7 +8,7 @@ export const HomeProductModal = ({
   des,
   price,
   title,
-  image
+  image,
 }) => {
   return (
     <div>
@@ -24,11 +24,8 @@ export const HomeProductModal = ({
           }}
         >
           <Modal.Section>
-            <div className="flex flex-wrap ">
-              <img
-                className="w-2/4"
-                src={image}
-              />
+            <div>
+              <img className="w-2/4" src={image} />
               <div>
                 <p className="my-3 font-bold">price: {price}</p>
                 <p className="font-semibold1">{des}</p>

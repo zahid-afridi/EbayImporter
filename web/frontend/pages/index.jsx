@@ -10,11 +10,11 @@ import {
   TextFields,
 } from "@mui/icons-material";
 
+import { useDispatch, useSelector } from "react-redux";
 
 import { HomeProductModal } from "../components";
 
 const Index = () => {
-  
   const [load, setLoad] = useState(false);
   const [btnInit, setButtonInit] = useState(1);
   const [inputValue, setInputValue] = useState("");
@@ -35,6 +35,7 @@ const Index = () => {
   //   };
   //   fetchData();
   // }, []);
+  const { StoreDetail } = useSelector((state) => state.StoreInfo);
 
   const onBtnPress = async () => {
     setLoad(true);
@@ -43,7 +44,9 @@ const Index = () => {
     } else {
       try {
         inputValue.trim();
-        const res = await fetch(`/api/importProduct?url=${inputValue}`);
+        const res = await fetch(
+          `/api/importProduct?url=${inputValue}&&Shop_id=${StoreDetail.Store_Id}`
+        );
         const data = await res.json();
         console.log({ res, data });
         if (res.status == 200) {
