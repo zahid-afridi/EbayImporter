@@ -16,7 +16,8 @@ import { StoreInfo } from "./redux/query/user";
 const App = () => {
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
-  const { StoreDetail } = useSelector((state) => state.StoreInfo);
+  const { StoreDetail } = useSelector((state) => state.StoreSlice);
+
   console.log("Store data form redux", StoreDetail);
 
   useEffect(() => {

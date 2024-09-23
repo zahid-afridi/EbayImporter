@@ -1,3 +1,2 @@
-import StoreSlice from "./user/UserStoreSlice.js";
-
-export { StoreSlice };
+export { UpdateStoreDetail } from "./user/UserStoreSlice";
+export { setProductData } from "./user/productStoreSlice";
