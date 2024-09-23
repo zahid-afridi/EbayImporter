@@ -21,16 +21,15 @@ export const StoreInfo = (load) => {
 export const ProductApi = (StoreId) => {
   return async (dispatch) => {
     try {
-    
-      const response = await fetch(`/api/products/getProduct?shop_id=${StoreId}`);
+      const response = await fetch(
+        `/api/products/getProduct?shop_id=${StoreId}`
+      );
       const data = await response.json();
       if (response.status === 200) {
         // console.log("Product data form redux", data);
-        dispatch(setProductData(data)); // Dispatching action to update store
+        dispatch(setProductData(data));
       }
-  
     } catch (error) {
-     
       console.error(error);
     }
   };

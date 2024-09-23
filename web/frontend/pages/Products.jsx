@@ -11,26 +11,11 @@ const Products = () => {
   const [stl, setStl] = useState(1);
   console.log({ productData });
   const [load, setLoad] = useState(true);
-  const StoreDetail = useSelector((state) => state.StoreSlice.StoreDetail);
+  const { StoreDetail } = useSelector((state) => state.StoreSlice);
 
   useEffect(() => {
-    dispatch(ProductApi(setLoad));
+    dispatch(ProductApi(StoreDetail.Store_Id));
   }, []);
-
-  useEffect(()=>{
-// const getProduct=async()=>{
-//   try {
-//     const response = await fetch(`/api/products/getProduct?shop_id=${StoreDetail.Store_Id}`);
-//       const data = await response.json();
-//        console.log('MYProducts',data)
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-// getProduct()
-dispatch(ProductApi(StoreDetail.Store_Id)); 
-
-  },[])
 
   return (
     <div>
@@ -58,7 +43,19 @@ dispatch(ProductApi(StoreDetail.Store_Id));
           ))}
         </div>
       </div>
-      {[].map((e, i) => (
+      {[
+        {
+          title: "regatta",
+          price: {
+            value: 100,
+            currency: "USD",
+          },
+          description:
+            "European Linen Blend Wide Leg Linen Co-ordinate Pant in Olive/white Contrast Top Stitching OliveRegattaEuropean Linen Blend Wide Leg Linen Co-ordinate Pant in Olive/white Contrast Top Stitching Olive... pants will be a staple in your wardrobe. The classic design creates a versatile and timeless look that can be dressed up or down. The fabric ... Quality fabric Solid ; Ankle Length ; Relaxed ; Mid Waist ; 55% European Linen, ...",
+          image:
+            "https://cdn.fantasticpestscontrol.com.au/wp-content/uploads/2017/04/house_mouse.jpg",
+        },
+      ].map((e, i) => (
         <ProductsCard key={i} dime={stl} data={e} />
       ))}
     </div>
@@ -66,4 +63,3 @@ dispatch(ProductApi(StoreDetail.Store_Id));
 };
 
 export default Products;
-

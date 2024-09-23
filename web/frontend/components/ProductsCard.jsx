@@ -1,7 +1,7 @@
 import React from "react";
 
-const ProductsCard = ({ dime }) => {
-  console.log({ dime });
+const ProductsCard = ({ data, dime }) => {
+  // console.log({ dime });
   return <div>hello</div>;
 };
 
