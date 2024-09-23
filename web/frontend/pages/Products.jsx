@@ -8,8 +8,8 @@ const Products = () => {
     <div>
       <div className="flex flex-row justify-between">
         <p>Products</p>
-        {[{ id: 1 }, { id: 2 }].map((e) => (
-          <ReorderOutlined key={e.id} onClick={() => setStl(e.id)} />
+        {[{ id: 1 }, { id: 2 }].map((e, i) => (
+          <ReorderOutlined key={i} onClick={() => setStl(e.id)} />
         ))}
       </div>
     </div>
