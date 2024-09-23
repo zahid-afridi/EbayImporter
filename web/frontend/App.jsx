@@ -16,15 +16,19 @@ import { StoreInfo } from "./redux/query/user";
 const App = () => {
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
-  const { StoreDetail } = useSelector((state) => state.StoreSlice);
 
-  console.log("Store data form redux", StoreDetail);
+  // Ensure you are accessing the correct state property
+  const StoreDetail = useSelector((state) => state.StoreSlice.StoreDetail);
+  console.log("StoreDeati",StoreDetail)
+
+  console.log(StoreDetail);
 
   useEffect(() => {
     if (!StoreDetail) {
-      dispatch(StoreInfo(setLoad));
+      dispatch(StoreInfo(setLoad)); 
+      
     }
-  }, []);
+  }, [dispatch]);
   const pages = import.meta.glob("./pages/**/!(*.test.[jt]sx)*.([jt]sx)", {
     eager: true,
   });

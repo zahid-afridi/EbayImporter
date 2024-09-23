@@ -15,8 +15,9 @@ import {
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["Auth"],
+  whitelist: ["Auth", "StoreSlice"], // Add StoreSlice to persist
 };
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
@@ -28,4 +29,5 @@ export const store = configureStore({
       },
     }),
 });
+
 export const persistor = persistStore(store);

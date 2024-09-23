@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { horzImg, vertImg } from "../assets";
 import { ProductsCard } from "../components";
-import { productApi } from "../redux/query/user";
+// import { productApi } from "../redux/query/user";
+import { ProductApi } from "../redux/query/user";
 import { useDispatch, useSelector } from "react-redux";
 const Products = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const Products = () => {
   const [load, setLoad] = useState(true);
 
   useEffect(() => {
-    dispatch(productApi(setLoad));
+    dispatch(ProductApi(setLoad));
   }, []);
 
   return (
@@ -48,3 +49,4 @@ const Products = () => {
 };
 
 export default Products;
+

@@ -1,4 +1,4 @@
-import { setProductData, UpdateStoreDetail } from "../Slices";
+import { UpdateStoreDetail } from "../Slices/user/UserStoreSlice";
 
 export const StoreInfo = (load) => {
   return async (dispatch) => {
@@ -6,32 +6,31 @@ export const StoreInfo = (load) => {
       load(true);
       const response = await fetch("/api/store/info");
       const data = await response.json();
-      if (response.status == 200) {
-        console.log("Sotre data form api ", data);
-        dispatch(UpdateStoreDetail(data));
+      if (response.status === 200) {
+        console.log("Store data from API", data);
+        dispatch(UpdateStoreDetail(data)); // Dispatching action to update store
       }
       load(false);
     } catch (error) {
       load(false);
-      console.log(error);
+      console.error(error);
     }
   };
 };
-
-export const productApi = (load) => {
+export const ProductApi = (load) => {
   return async (dispatch) => {
     try {
       load(true);
       const response = await fetch("/api/store/info");
       const data = await response.json();
-      if (response.status == 200) {
-        console.log("Sotre data form api ", data);
-        dispatch(setProductData(data));
+      if (response.status === 200) {
+        console.log("Store data from API", data);
+        dispatch(UpdateStoreDetail(data)); // Dispatching action to update store
       }
       load(false);
     } catch (error) {
       load(false);
-      console.log(error);
+      console.error(error);
     }
   };
 };

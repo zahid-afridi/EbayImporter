@@ -35,7 +35,9 @@ const Index = () => {
   //   };
   //   fetchData();
   // }, []);
-  const { StoreDetail } = useSelector((state) => state.StoreInfo);
+  const StoreDetail = useSelector((state) => state.StoreSlice.StoreDetail);
+
+
 
   const onBtnPress = async () => {
     setLoad(true);
