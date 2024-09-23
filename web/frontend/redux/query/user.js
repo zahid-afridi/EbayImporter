@@ -18,18 +18,21 @@ export const StoreInfo = (load) => {
     }
   };
 };
-export const ProductApi = (StoreId) => {
+export const ProductApi = (StoreId, load) => {
   return async (dispatch) => {
     try {
+      load(true);
       const response = await fetch(
         `/api/products/getProduct?shop_id=${StoreId}`
       );
       const data = await response.json();
       if (response.status === 200) {
+        load(false);
         // console.log("Product data form redux", data);
-        dispatch(setProductData(data));
+        dispatch(setProductData(data.products));
       }
     } catch (error) {
+      load(false);
       console.error(error);
     }
   };

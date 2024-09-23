@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { horzImg, vertImg } from "../assets";
-import { ProductsCard } from "../components";
+import { ProductsCard, Spinner } from "../components";
 // import { productApi } from "../redux/query/user";
+import FlatList from "flatlist-react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { ProductApi } from "../redux/query/user";
 const Products = () => {
   const dispatch = useDispatch();
   const { productData } = useSelector((state) => state.product);
+  console.log("productData", productData);
   const [stl, setStl] = useState(1);
-  console.log({ productData });
   const [load, setLoad] = useState(true);
   const { StoreDetail } = useSelector((state) => state.StoreSlice);
 
   useEffect(() => {
-    dispatch(ProductApi(StoreDetail.Store_Id));
+    dispatch(ProductApi(StoreDetail.Store_Id, setLoad));
   }, []);
 
   return (
@@ -43,21 +44,19 @@ const Products = () => {
           ))}
         </div>
       </div>
-      {[
-        {
-          title: "regatta",
-          price: {
-            value: 100,
-            currency: "USD",
-          },
-          description:
-            "European Linen Blend Wide Leg Linen Co-ordinate Pant in Olive/white Contrast Top Stitching OliveRegattaEuropean Linen Blend Wide Leg Linen Co-ordinate Pant in Olive/white Contrast Top Stitching Olive... pants will be a staple in your wardrobe. The classic design creates a versatile and timeless look that can be dressed up or down. The fabric ... Quality fabric Solid ; Ankle Length ; Relaxed ; Mid Waist ; 55% European Linen, ...",
-          image:
-            "https://cdn.fantasticpestscontrol.com.au/wp-content/uploads/2017/04/house_mouse.jpg",
-        },
-      ].map((e, i) => (
-        <ProductsCard key={i} dime={stl} data={e} />
-      ))}
+      {load ? (
+        <Spinner />
+      ) : (
+        <>
+          <FlatList
+            list={productData}
+            renderItem={(e) => <ProductsCard dime={stl} data={e} />}
+            renderWhenEmpty={() => <div>List is empty!</div>}
+            // sortBy={["firstName", {key: "lastName", descending: true}]}
+            // groupBy={person => person.info.age > 18 ? 'Over 18' : 'Under 18'}
+          />
+        </>
+      )}
     </div>
   );
 };
