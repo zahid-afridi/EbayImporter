@@ -24,8 +24,8 @@ const Products = () => {
         <p>Products</p>
         <div className="flex flex-row gap-2">
           {[
-            { id: 1, img: horzImg },
-            { id: 2, img: vertImg },
+            { id: 1, img: vertImg },
+            { id: 2, img: horzImg },
           ].map((e, i) => (
             <div
               key={i}
@@ -47,7 +47,7 @@ const Products = () => {
       {load ? (
         <Spinner />
       ) : (
-        <>
+        <div className={`flex ${stl == 1 ? "flex-row flex-wrap" : "flex-col"}`}>
           <FlatList
             list={productData}
             renderItem={(e) => <ProductsCard dime={stl} data={e} />}
@@ -55,7 +55,7 @@ const Products = () => {
             // sortBy={["firstName", {key: "lastName", descending: true}]}
             // groupBy={person => person.info.age > 18 ? 'Over 18' : 'Under 18'}
           />
-        </>
+        </div>
       )}
     </div>
   );
