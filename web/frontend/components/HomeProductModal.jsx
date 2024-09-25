@@ -20,7 +20,7 @@ export const HomeProductModal = ({
           title={title}
           primaryAction={{
             content: "Add to Shopify",
-            onAction: onPrimeAction,
+            onAction: onClose,
           }}
         >
           <Modal.Section>

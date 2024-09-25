@@ -1,6 +1,6 @@
 import FlatList from "flatlist-react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProductsCard, Spinner } from "../components";
+import { HomeProductModal, ProductsCard, Spinner } from "../components";
 import { ProductApi } from "../redux/query/user";
 import React, { useEffect, useState } from "react";
 
@@ -9,12 +9,13 @@ const Products = () => {
   const { productData } = useSelector((state) => state.product);
   const { StoreDetail } = useSelector((state) => state.StoreSlice);
   const [load, setLoad] = useState(false);
-  console.log("StoreDetail.Store_Id ==>", productData);
+  const [modal, setModal] = useState({
+    visible: false,
+    data: {},
+  });
   useEffect(() => {
     dispatch(ProductApi(StoreDetail.Store_Id, setLoad));
   }, []);
-
-
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl mb-2 text-gray-800">Product Table</h1>
@@ -55,6 +56,17 @@ const Products = () => {
       <h2 className="text-lg font-semibold mt-6 text-center text-gray-700">
         Manage Your Products Efficiently
       </h2>
+      <HomeProductModal
+        open={modal.visible}
+        title={modal.data?.title || "title"}
+        des={modal.data?.description || "description"}
+        price={modal.data?.price?.value || "price"}
+        image={
+          modal.data?.mainImage ||
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+        }
+        onClose={() => setModal({ visible: false })}
+      />
     </div>
   );
 };
