@@ -10,6 +10,7 @@ const Products = () => {
   const { StoreDetail } = useSelector((state) => state.StoreSlice);
   const [load, setLoad] = useState(false);
   const [uploadLoad, setUploadLoad] = useState(false);
+  const [DeleteLoad, setDeleteLoad] = useState(false);
   const [modal, setModal] = useState({
     visible: false,
     data: {},
@@ -19,10 +20,10 @@ const Products = () => {
   }, []);
 
   const onUpload = (data) => {
-    dispatch(uploadApi(data, StoreDetail.Store_Id, setLoad));
+    dispatch(uploadApi(data, StoreDetail.Store_Id, setUploadLoad));
   };
   const onDelete = (data) => {
-    dispatch(deleteApi(data.shopifyId, setUploadLoad));
+    dispatch(deleteApi(data.shopifyId, setDeleteLoad));
   };
   console.log(productData);
   return (
@@ -54,6 +55,7 @@ const Products = () => {
                     data={e}
                     onUpload={() => onUpload(e)}
                     uploadLoad={uploadLoad}
+                    DeleteLoad={DeleteLoad}
                     onDelete={() => onDelete(e)}
                   />
                 )}
