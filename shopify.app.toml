@@ -3,7 +3,7 @@
 client_id = "511fb4a15be08ba3e8872de396ed8f7d"
 name = "ebayimporter"
 handle = "ebayimporter-1"
-application_url = "https://arm-weights-emily-philosophy.trycloudflare.com"
+application_url = "https://carrying-sides-congo-phoenix.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_content,read_locales,read_products,read_script_tags,read_themes,w
 
 [auth]
 redirect_urls = [
-  "https://arm-weights-emily-philosophy.trycloudflare.com/auth/callback",
-  "https://arm-weights-emily-philosophy.trycloudflare.com/auth/shopify/callback",
-  "https://arm-weights-emily-philosophy.trycloudflare.com/api/auth/callback"
+  "https://carrying-sides-congo-phoenix.trycloudflare.com/auth/callback",
+  "https://carrying-sides-congo-phoenix.trycloudflare.com/auth/shopify/callback",
+  "https://carrying-sides-congo-phoenix.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

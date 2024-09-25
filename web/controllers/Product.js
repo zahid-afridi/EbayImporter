@@ -106,6 +106,7 @@ const Delete = async (req, res) => {
   try {
     const { shopifyId, productId } = req.body;
     console.log('shopifyId:', shopifyId);
+    console.log('produci:', productId);
 
     // Attempt to delete product from the database first
     const databaseProduct = await ProductModel.findByIdAndDelete({ _id: productId });

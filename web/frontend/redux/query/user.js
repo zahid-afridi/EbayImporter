@@ -71,7 +71,7 @@ export const uploadApi = (data, id, setLoad) => {
   };
 };
 
-export const deleteApi = (shopifyId, productId, setLoad) => {
+export const deleteApi = (shopifyId, setLoad) => {
   return async (dispatch) => {
     setLoad(true);
     try {
@@ -81,13 +81,13 @@ export const deleteApi = (shopifyId, productId, setLoad) => {
           "Content-Type": "application/json", // Specify JSON format
         },
         body: JSON.stringify({
-          shopifyId,
-          productId,
+          shopifyId
+          
         }),
       });
 
       const res = await response.json();
-      console.log("delete", res);
+     
       if (response.ok) {
         setLoad(false);
         dispatch(ProductApi(shopifyId, setLoad));
