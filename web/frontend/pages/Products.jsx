@@ -13,6 +13,8 @@ const Products = () => {
   useEffect(() => {
     dispatch(ProductApi(StoreDetail.Store_Id, setLoad));
   }, []);
+
+
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl mb-2 text-gray-800">Product Table</h1>

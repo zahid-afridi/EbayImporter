@@ -26,6 +26,7 @@ export const ProductApi = (StoreId, load) => {
         `/api/products/getProduct?shop_id=${StoreId}`
       );
       const data = await response.json();
+      console.log('fetchProduct',data)
       if (response.status === 200) {
         load(false);
         // console.log("Product data form redux", data);

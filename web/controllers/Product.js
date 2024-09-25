@@ -1,4 +1,6 @@
 import ProductModel from "../models/Products.js";
+import shopify from "../shopify.js";
+
 
 const GetProduct = async (req, res) => {
   try {
@@ -13,11 +15,11 @@ const GetProduct = async (req, res) => {
     }
 
     // Log shop_id for debugging
-    console.log("shop_id:", shop_id);
+    // console.log("shop_id:", shop_id);
 
     // Query the product model
     const products = await ProductModel.find({ shop_id });
-console.log('products',products)
+// console.log('products',products)
     // Check if any products were found
     if (!products.length) {
       return res.status(404).json({
@@ -37,5 +39,67 @@ console.log('products',products)
     });
   }
 };
+const UploadeProduct=async(req,res)=>{
+  const { title, description, image_url,ProductId,price } = req.body;
+  try {
+      // Create a new Shopify product object
+      const newProduct = await new shopify.api.rest.Product({
+          session: res.locals.shopify.session,
+          // title: 'hello',
+          // body_html: 'hello',
+          // images: [{ src: "https://m.media-amazon.com/images/I/41gBvQOnKDL._AC_SL1500_.jpg" }]
+      });
+       newProduct.title=title,
+       newProduct.body_html=description,
+       newProduct.images=image_url.map(url =>({src:url}))
+       newProduct.variants = [
+          {
+              "option1": "First",
+              "price": price,
+              "sku": "123"
+        
 
-export { GetProduct };
+          }
+       ]
+         
+      
+       
+            
+      newProduct.metafields = [{
+     "key": "amazonurl3",
+      "value": "Random 2 products",
+      "type": "single_line_text_field",
+      "namespace": "custom"
+      }];
+
+      const DatabesProduct=await ProductModel.findById({_id:ProductId})
+      if (!DatabesProduct) {
+        res.status(404).json({ success:false,message: "Prodcut not Found"});
+        
+      }
+      DatabesProduct.shopifyId=newProduct.id
+      DatabesProduct.inShopify=true
+      await DatabesProduct.save()
+    
+      
+      await newProduct.save({
+          update: true,
+      });
+
+     
+      // console.log('databaseProduc',DatabesProduct)
+      console.log("this is new Product Id",newProduct.id)
+      console.log("Database product Id",ProductId)
+      console.log('product price is comming',price)
+
+          // Send a success response
+          res.status(200).json({ message: "Product added successfully", product: newProduct });
+     
+  } catch (error) {
+      // If there's an error, send an error response
+      console.error('upload error',error);
+      res.status(500).json({ message: "Internal Server error" });
+  }
+
+}
+export { GetProduct,UploadeProduct };
