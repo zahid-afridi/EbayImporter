@@ -1,7 +1,7 @@
 import FlatList from "flatlist-react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeProductModal, ProductsCard, Spinner } from "../components";
-import { ProductApi, uploadApi } from "../redux/query/user";
+import { deleteApi, ProductApi, uploadApi } from "../redux/query/user";
 import React, { useEffect, useState } from "react";
 
 const Products = () => {
@@ -20,6 +20,9 @@ const Products = () => {
   const onUpload = (data) => {
     dispatch(uploadApi(data, StoreDetail.Store_Id, setLoad));
   };
+  const onDelete=(data)=>{
+    dispatch(deleteApi(data.shopifyId,setLoad))
+  }
   console.log(productData);
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -45,7 +48,7 @@ const Products = () => {
               <FlatList
                 list={productData}
                 renderItem={(e, i) => (
-                  <ProductsCard key={i} data={e} onUpload={() => onUpload(e)} />
+                  <ProductsCard key={i} data={e} onUpload={() => onUpload(e)} onDelete={()=> onDelete(e)}/>
                 )}
                 renderWhenEmpty={() => (
                   <tr>

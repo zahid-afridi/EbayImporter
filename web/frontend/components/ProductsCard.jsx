@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ProductsCard = ({ data, onView, onUpload }) => {
+const ProductsCard = ({ data, onView, onUpload,onDelete }) => {
   return (
     <tr className="hover:bg-gray-50 transition-colors duration-200">
       <td className="py-3 px-4 border-b">
@@ -35,7 +35,7 @@ const ProductsCard = ({ data, onView, onUpload }) => {
 
           <button
             className="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-red-700 transition duration-200 shadow hover:shadow-lg text-sm"
-            onClick={() => alert(`Delete ${data?.title}`)}
+            onClick={onDelete}
           >
             Delete
           </button>

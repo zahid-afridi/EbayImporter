@@ -71,3 +71,32 @@ export const uploadApi = (data, id, setLoad) => {
     }
   };
 };
+
+
+export const deleteApi = (shopifyId, setLoad) => {
+  return async (dispatch) => {
+    setLoad(true);
+    try {
+      const response = await fetch("/api/products/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json", // Specify JSON format
+        },
+        body: JSON.stringify({
+          shopifyId
+        }),
+      });
+
+      const res = await response.json();
+      console.log("delete", res);
+      if (response.ok) {
+        setLoad(false);
+        
+        alert("delete successfully");
+      }
+    } catch (error) {
+      setLoad(false);
+      console.log("upload error:===>", error);
+    }
+  };
+};

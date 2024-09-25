@@ -102,4 +102,28 @@ const UploadeProduct=async(req,res)=>{
   }
 
 }
-export { GetProduct,UploadeProduct };
+const Delete = async (req, res) => {
+  try {
+      const { shopifyId } = req.body;
+
+      // Delete product from Shopify
+      const deletedProduct = await shopify.api.rest.Product.delete({
+          session: res.locals.shopify.session,
+          id: shopifyId,
+      });
+
+    const databaseProduct=  await ProductModel.findOneAndDelete({ shopifyId: shopifyId });
+    
+     if (!databaseProduct) {
+      res.status(200).json({ message: "Product Not Found in Shopify but deleted from database", product: databaseProduct });
+      
+     }
+      // Send success response
+      res.status(200).json({ message: "Product deleted successfully", product: databaseProduct });
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal Server error" });
+  }
+}
+export { GetProduct,UploadeProduct,Delete };
