@@ -115,15 +115,14 @@ const Delete = async (req, res) => {
       
     }
 
-       const deletedProduct = await shopify.api.rest.Product.delete({
+    if (shopifyId) {
+      await shopify.api.rest.Product.delete({
         session: res.locals.shopify.session,
         id: shopifyId,
     });
-
-    // If product not found in Shopify, return 404
-    if (!deletedProduct) {
-        return res.status(200).json({success:true, message: "Product not found in Shopify but delete form database",product:DatabaseProdcut });
     }
+
+
 
     // Delete product from MongoDB
 

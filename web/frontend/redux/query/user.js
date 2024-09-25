@@ -88,7 +88,7 @@ export const deleteApi = (shopifyId,productId, setLoad) => {
       });
 
       const res = await response.json();
-     
+     console.log("deletepai",res)
       if (response.ok) {
         setLoad({ show: false, id: shopifyId });
         dispatch(ProductApi(shopifyId, setLoad));
