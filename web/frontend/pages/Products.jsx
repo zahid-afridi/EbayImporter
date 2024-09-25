@@ -6,15 +6,14 @@ import React, { useEffect, useState } from "react";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const [load, setLoad] = useState(false);
   const { productData } = useSelector((state) => state.product);
   const { StoreDetail } = useSelector((state) => state.StoreSlice);
-  const [load, setLoad] = useState(false);
-  const [uploadLoad, setUploadLoad] = useState({ show: false, id: "" });
-  const [DeleteLoad, setDeleteLoad] = useState({ show: false, id: "" });
-  const [modal, setModal] = useState({
-    visible: false,
-    data: {},
-  });
+  const [modal, setModal] = useState({ visible: false, data: {} });
+  const [uploadLoad, setUploadLoad] = useState({ show: false, id: null });
+  const [DeleteLoad, setDeleteLoad] = useState({ show: false, id: null });
+
+  console.log("productData", productData);
   useEffect(() => {
     dispatch(ProductApi(StoreDetail.Store_Id, setLoad));
   }, []);
@@ -23,12 +22,17 @@ const Products = () => {
     dispatch(uploadApi(data, StoreDetail.Store_Id, setUploadLoad));
   };
   const onDelete = (data) => {
-    dispatch(deleteApi(data.shopifyId, data._id, setDeleteLoad));
+    setLoad({ show: true, id: data.title });
+    setTimeout(() => {
+      setLoad({ show: false, id: null });
+    }, 2000);
+    // dispatch(deleteApi(data, data.shopifyId, data._id, setDeleteLoad));
   };
+
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl mb-2 text-gray-800">Product Table</h1>
-      {load ? (
+      {load && productData.length !== 0 ? (
         <Spinner />
       ) : (
         <div className="overflow-x-auto">
@@ -47,14 +51,14 @@ const Products = () => {
             </thead>
             <tbody>
               <FlatList
-                list={productData}
+                list={productData.length >= 0 ? productData : []}
                 renderItem={(e, i) => (
                   <ProductsCard
                     key={i}
                     data={e}
                     onUpload={() => onUpload(e)}
-                    uploadLoad={uploadLoad.show}
-                    DeleteLoad={DeleteLoad.show}
+                    uploadLoad={uploadLoad}
+                    DeleteLoad={DeleteLoad}
                     onDelete={() => onDelete(e)}
                   />
                 )}
