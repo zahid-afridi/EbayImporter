@@ -42,7 +42,7 @@ export const ProductApi = (StoreId, load) => {
 
 export const uploadApi = (data, id, setLoad) => {
   return async (dispatch) => {
-    setLoad(true);
+    setLoad({ show: true, id: data._id });
     try {
       const response = await fetch("/api/products/upload", {
         method: "POST",
@@ -61,11 +61,11 @@ export const uploadApi = (data, id, setLoad) => {
       const res = await response.json();
       console.log("upload", res);
       if (response.ok) {
-        setLoad(false);
+        setLoad({ show: false, id: data._id });
         dispatch(ProductApi(id, setLoad));
       }
     } catch (error) {
-      setLoad(false);
+      setLoad({ show: false, id: data._id });
       console.log("upload error:===>", error);
     }
   };
@@ -73,7 +73,7 @@ export const uploadApi = (data, id, setLoad) => {
 
 export const deleteApi = (shopifyId, productId, setLoad) => {
   return async (dispatch) => {
-    setLoad(true);
+    setLoad({ show: true, id: shopifyId });
     try {
       const response = await fetch("/api/products/delete", {
         method: "DELETE",
@@ -89,11 +89,12 @@ export const deleteApi = (shopifyId, productId, setLoad) => {
       const res = await response.json();
       console.log("delete", res);
       if (response.ok) {
-        setLoad(false);
+        setLoad({ show: false, id: shopifyId });
         dispatch(ProductApi(shopifyId, setLoad));
       }
     } catch (error) {
-      setLoad(false);
+      setLoad({ show: false, id: shopifyId });
+
       console.log("upload error:===>", error);
     }
   };

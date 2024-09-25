@@ -9,8 +9,8 @@ const Products = () => {
   const { productData } = useSelector((state) => state.product);
   const { StoreDetail } = useSelector((state) => state.StoreSlice);
   const [load, setLoad] = useState(false);
-  const [uploadLoad, setUploadLoad] = useState(false);
-  const [DeleteLoad, setDeleteLoad] = useState(false);
+  const [uploadLoad, setUploadLoad] = useState({ show: false, id: "" });
+  const [DeleteLoad, setDeleteLoad] = useState({ show: false, id: "" });
   const [modal, setModal] = useState({
     visible: false,
     data: {},
@@ -23,9 +23,8 @@ const Products = () => {
     dispatch(uploadApi(data, StoreDetail.Store_Id, setUploadLoad));
   };
   const onDelete = (data) => {
-    dispatch(deleteApi(data.shopifyId, data.productId, setDeleteLoad));
+    dispatch(deleteApi(data.shopifyId, data._id, setDeleteLoad));
   };
-  console.log(productData);
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl mb-2 text-gray-800">Product Table</h1>
@@ -54,8 +53,8 @@ const Products = () => {
                     key={i}
                     data={e}
                     onUpload={() => onUpload(e)}
-                    uploadLoad={uploadLoad}
-                    DeleteLoad={DeleteLoad}
+                    uploadLoad={uploadLoad.show}
+                    DeleteLoad={DeleteLoad.show}
                     onDelete={() => onDelete(e)}
                   />
                 )}

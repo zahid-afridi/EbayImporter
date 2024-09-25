@@ -33,9 +33,11 @@ const ProductsCard = ({
             <button
               className="bg-blue-600 text-white py-1 px-3 rounded-md hover:bg-blue-700 transition duration-200 shadow hover:shadow-lg text-sm"
               onClick={onUpload}
-              disabled={uploadLoad}
+              disabled={uploadLoad.show}
             >
-              {uploadLoad ? "Uploading..." : "Upload"}
+              {uploadLoad.id == data._id && uploadLoad.show
+                ? "Uploading..."
+                : "Upload"}
             </button>
           )}
 
@@ -44,7 +46,9 @@ const ProductsCard = ({
             onClick={onDelete}
             disabled={DeleteLoad}
           >
-            {DeleteLoad ? "Deleting..." : "Delete"}
+            {DeleteLoad.shopifyId == DeleteLoad.shopifyId && DeleteLoad.show
+              ? "Deleting..."
+              : "Delete"}
           </button>
         </div>
       </td>
