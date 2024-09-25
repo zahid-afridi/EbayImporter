@@ -18,6 +18,7 @@ export const StoreInfo = (load) => {
     }
   };
 };
+
 export const ProductApi = (StoreId, load) => {
   return async (dispatch) => {
     try {
@@ -26,7 +27,7 @@ export const ProductApi = (StoreId, load) => {
         `/api/products/getProduct?shop_id=${StoreId}`
       );
       const data = await response.json();
-      console.log('fetchProduct',data)
+      console.log("fetchProduct", data);
       if (response.status === 200) {
         load(false);
         // console.log("Product data form redux", data);
@@ -35,6 +36,38 @@ export const ProductApi = (StoreId, load) => {
     } catch (error) {
       load(false);
       console.error(error);
+    }
+  };
+};
+
+export const uploadApi = (data, id, setLoad) => {
+  return async (dispatch) => {
+    setLoad(true);
+    try {
+      const response = await fetch("/api/products/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Specify JSON format
+        },
+        body: JSON.stringify({
+          title: data.title,
+          description: data.description,
+          image_url: data.image_url,
+          ProductId: data._id,
+          price: data.price,
+        }),
+      });
+
+      const res = await response.json();
+      console.log("upload", res);
+      if (response.ok) {
+        setLoad(false);
+        dispatch(ProductApi(id, setLoad));
+        alert("successfully");
+      }
+    } catch (error) {
+      setLoad(false);
+      console.log("upload error:===>", error);
     }
   };
 };
