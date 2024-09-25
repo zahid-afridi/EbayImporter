@@ -38,6 +38,6 @@ const productSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-const ProductModel = mongoose.model('AmazonProduct', productSchema);
+const ProductModel = mongoose.model('ebayprdouct', productSchema);
 
 export default ProductModel;
