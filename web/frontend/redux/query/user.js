@@ -71,7 +71,7 @@ export const uploadApi = (data, id, setLoad) => {
   };
 };
 
-export const deleteApi = (shopifyId, setLoad) => {
+export const deleteApi = (shopifyId, productId, setLoad) => {
   return async (dispatch) => {
     setLoad(true);
     try {
@@ -82,6 +82,7 @@ export const deleteApi = (shopifyId, setLoad) => {
         },
         body: JSON.stringify({
           shopifyId,
+          productId,
         }),
       });
 
