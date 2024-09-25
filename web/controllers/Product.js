@@ -113,13 +113,13 @@ const Delete = async (req, res) => {
 
     // If the product is not found in the database
     if (!databaseProduct) {
-      return res.status(404).json({ message: "Product Not Found in Database" });
+      return res.status(404).json({success:false, message: "Product Not Found in Database" });
     }
 
     // If shopifyId is null
     if (!shopifyId) {
-      return res.status(404).json({
-        message: "Shopify ID is null. Product deleted successfully from database but not found in Shopify."
+      return res.status(200).json({success:true,
+        message: " Product deleted successfully from database but not found in Shopify."
       });
     }
 
@@ -131,7 +131,7 @@ const Delete = async (req, res) => {
 
     // If the product is not found in Shopify
     if (!foundInShopify || foundInShopify.length === 0) {
-      return res.status(404).json({
+      return res.status(200).json({success:true,
         message: "Product Not Found in Shopify but deleted successfully from database",
         product: databaseProduct,
       });
