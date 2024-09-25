@@ -72,6 +72,13 @@ const UploadeProduct=async(req,res)=>{
       "namespace": "custom"
       }];
 
+  
+    
+      
+      
+      await newProduct.save({
+          update: true,
+      });
       const DatabesProduct=await ProductModel.findById({_id:ProductId})
       if (!DatabesProduct) {
         res.status(404).json({ success:false,message: "Prodcut not Found"});
@@ -80,15 +87,8 @@ const UploadeProduct=async(req,res)=>{
       DatabesProduct.shopifyId=newProduct.id
       DatabesProduct.inShopify=true
       await DatabesProduct.save()
-    
-      
-      await newProduct.save({
-          update: true,
-      });
-
-     
-      // console.log('databaseProduc',DatabesProduct)
       console.log("this is new Product Id",newProduct.id)
+      // console.log('databaseProduc',DatabesProduct)
       console.log("Database product Id",ProductId)
       console.log('product price is comming',price)
 
