@@ -104,26 +104,59 @@ const UploadeProduct=async(req,res)=>{
 }
 const Delete = async (req, res) => {
   try {
-      const { shopifyId } = req.body;
+    const { shopifyId, productId } = req.body;
+    console.log('shopifyId:', shopifyId);
 
-      // Delete product from Shopify
-      const deletedProduct = await shopify.api.rest.Product.delete({
-          session: res.locals.shopify.session,
-          id: shopifyId,
+    // Attempt to delete product from the database first
+    const databaseProduct = await ProductModel.findByIdAndDelete({ _id: productId });
+
+    // If the product is not found in the database
+    if (!databaseProduct) {
+      return res.status(404).json({ message: "Product Not Found in Database" });
+    }
+
+    // If shopifyId is null
+    if (!shopifyId) {
+      return res.status(404).json({
+        message: "Shopify ID is null. Product deleted successfully from database but not found in Shopify."
       });
+    }
 
-    const databaseProduct=  await ProductModel.findOneAndDelete({ shopifyId: shopifyId });
-    
-     if (!databaseProduct) {
-      res.status(200).json({ message: "Product Not Found in Shopify but deleted from database", product: databaseProduct });
-      
-     }
-      // Send success response
-      res.status(200).json({ message: "Product deleted successfully", product: databaseProduct });
+    // Check if the product exists in Shopify
+    const foundInShopify = await shopify.api.rest.Product.all({
+      session: res.locals.shopify.session,
+      ids: shopifyId,
+    });
+
+    // If the product is not found in Shopify
+    if (!foundInShopify || foundInShopify.length === 0) {
+      return res.status(404).json({
+        message: "Product Not Found in Shopify but deleted successfully from database",
+        product: databaseProduct,
+      });
+    }
+
+    // Delete the product from Shopify
+    await shopify.api.rest.Product.delete({
+      session: res.locals.shopify.session,
+      id: shopifyId,
+    });
+
+    // Successful deletion from both Shopify and database
+    res.status(200).json({
+      message: "Product deleted successfully from both Shopify and database",
+      product: databaseProduct,
+    });
 
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Internal Server error" });
+    console.error("Error during deletion:", error);
+    // Handle specific Shopify errors if needed
+    if (error.response) {
+      return res.status(error.response.status).json({ message: error.response.statusText });
+    }
+    res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
+
+
 export { GetProduct,UploadeProduct,Delete };
