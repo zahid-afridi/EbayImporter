@@ -9,6 +9,7 @@ const Products = () => {
   const { productData } = useSelector((state) => state.product);
   const { StoreDetail } = useSelector((state) => state.StoreSlice);
   const [load, setLoad] = useState(false);
+  const [uploadLoad, setUploadLoad] = useState(false);
   const [modal, setModal] = useState({
     visible: false,
     data: {},
@@ -20,9 +21,9 @@ const Products = () => {
   const onUpload = (data) => {
     dispatch(uploadApi(data, StoreDetail.Store_Id, setLoad));
   };
-  const onDelete=(data)=>{
-    dispatch(deleteApi(data.shopifyId,setLoad))
-  }
+  const onDelete = (data) => {
+    dispatch(deleteApi(data.shopifyId, setUploadLoad));
+  };
   console.log(productData);
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -48,7 +49,13 @@ const Products = () => {
               <FlatList
                 list={productData}
                 renderItem={(e, i) => (
-                  <ProductsCard key={i} data={e} onUpload={() => onUpload(e)} onDelete={()=> onDelete(e)}/>
+                  <ProductsCard
+                    key={i}
+                    data={e}
+                    onUpload={() => onUpload(e)}
+                    uploadLoad={uploadLoad}
+                    onDelete={() => onDelete(e)}
+                  />
                 )}
                 renderWhenEmpty={() => (
                   <tr>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ProductsCard = ({ data, onView, onUpload,onDelete }) => {
+const ProductsCard = ({ data, onView, onUpload, onDelete, uploadLoad }) => {
   return (
     <tr className="hover:bg-gray-50 transition-colors duration-200">
       <td className="py-3 px-4 border-b">
@@ -29,7 +29,7 @@ const ProductsCard = ({ data, onView, onUpload,onDelete }) => {
               className="bg-blue-600 text-white py-1 px-3 rounded-md hover:bg-blue-700 transition duration-200 shadow hover:shadow-lg text-sm"
               onClick={onUpload}
             >
-              Upload
+              {uploadLoad ? "Uploading..." : "Upload"}
             </button>
           )}
 
