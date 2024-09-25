@@ -9,8 +9,6 @@ const Products = () => {
   const { productData } = useSelector((state) => state.product);
   const { StoreDetail } = useSelector((state) => state.StoreSlice);
   const [load, setLoad] = useState(false);
-  const [uploadLoad, setUploadLoad] = useState(false);
-  const [DeleteLoad, setDeleteLoad] = useState(false);
   const [modal, setModal] = useState({
     visible: false,
     data: {},
@@ -19,11 +17,21 @@ const Products = () => {
     dispatch(ProductApi(StoreDetail.Store_Id, setLoad));
   }, []);
 
-  const onUpload = (data) => {
-    dispatch(uploadApi(data, StoreDetail.Store_Id, setUploadLoad));
+  const [uploadLoading, setUploadLoading] = useState({});
+  const [deleteLoading, setDeleteLoading] = useState({});
+
+  const onUpload = async (product) => {
+    setUploadLoading((prev) => ({ ...prev, [product.id]: true }));
+    // Simulate upload API call
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setUploadLoading((prev) => ({ ...prev, [product.id]: false }));
   };
-  const onDelete = (data) => {
-    dispatch(deleteApi(data.shopifyId, setDeleteLoad));
+
+  const onDelete = async (product) => {
+    setDeleteLoading((prev) => ({ ...prev, [product.id]: true }));
+    // Simulate delete API call
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setDeleteLoading((prev) => ({ ...prev, [product.id]: false }));
   };
   console.log(productData);
   return (
@@ -54,8 +62,8 @@ const Products = () => {
                     key={i}
                     data={e}
                     onUpload={() => onUpload(e)}
-                    uploadLoad={uploadLoad}
-                    DeleteLoad={DeleteLoad}
+                    uploadLoad={uploadLoading[e.id]}
+                    DeleteLoad={deleteLoading[e.id]}
                     onDelete={() => onDelete(e)}
                   />
                 )}

@@ -63,7 +63,6 @@ export const uploadApi = (data, id, setLoad) => {
       if (response.ok) {
         setLoad(false);
         dispatch(ProductApi(id, setLoad));
-        alert("successfully");
       }
     } catch (error) {
       setLoad(false);
@@ -71,7 +70,6 @@ export const uploadApi = (data, id, setLoad) => {
     }
   };
 };
-
 
 export const deleteApi = (shopifyId, setLoad) => {
   return async (dispatch) => {
@@ -83,7 +81,7 @@ export const deleteApi = (shopifyId, setLoad) => {
           "Content-Type": "application/json", // Specify JSON format
         },
         body: JSON.stringify({
-          shopifyId
+          shopifyId,
         }),
       });
 
@@ -91,8 +89,7 @@ export const deleteApi = (shopifyId, setLoad) => {
       console.log("delete", res);
       if (response.ok) {
         setLoad(false);
-        
-        alert("delete successfully");
+        dispatch(ProductApi(shopifyId, setLoad));
       }
     } catch (error) {
       setLoad(false);

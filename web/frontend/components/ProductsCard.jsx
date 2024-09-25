@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 const ProductsCard = ({
   data,
   onView,
@@ -35,6 +33,7 @@ const ProductsCard = ({
             <button
               className="bg-blue-600 text-white py-1 px-3 rounded-md hover:bg-blue-700 transition duration-200 shadow hover:shadow-lg text-sm"
               onClick={onUpload}
+              disabled={uploadLoad}
             >
               {uploadLoad ? "Uploading..." : "Upload"}
             </button>
@@ -43,8 +42,9 @@ const ProductsCard = ({
           <button
             className="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-red-700 transition duration-200 shadow hover:shadow-lg text-sm"
             onClick={onDelete}
+            disabled={DeleteLoad}
           >
-            {DeleteLoad ? "Deleteing..." : "Delete"}
+            {DeleteLoad ? "Deleting..." : "Delete"}
           </button>
         </div>
       </td>
