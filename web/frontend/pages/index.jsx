@@ -54,6 +54,7 @@ const Index = () => {
           setLoad(false);
 
           setModal({ visible: true, data: data.product });
+          console.log(data.product);
         }
       } catch (error) {
         setLoad(false);
@@ -73,10 +74,10 @@ const Index = () => {
   const [uploadLoad, setUploadLoad] = useState(false);
 
   const onUpload = () => {
-    // addToShopify(modal.data, setUploadLoad);
-    console.log(modal.data?.image_url[0]);
+    // addToShopify(modal.data, setUploadLoad, setInputValue, setModal);
+    console.log(modal?.data);
   };
-  console.log(modal.data?.image_url[0]);
+
   return (
     <div className="container center">
       <div className="container-sm home-container mt-3">
@@ -173,7 +174,7 @@ const Index = () => {
         des={modal.data?.description || "description"}
         price={modal.data?.price || "price"}
         image={
-          modal.data?.image_url[0] ||
+          modal?.data?.mainimage ||
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         }
         onPrimeAction={onUpload}

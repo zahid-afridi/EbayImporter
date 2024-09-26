@@ -32,7 +32,7 @@ const Products = () => {
     console.log(DeleteLoad);
     */
   };
-
+  console.log(modal.data);
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl mb-2 text-gray-800">Product Table</h1>
@@ -69,6 +69,7 @@ const Products = () => {
                     uploadLoad={uploadLoad}
                     DeleteLoad={DeleteLoad}
                     onDelete={() => onDelete(e)}
+                    onView={() => setModal({ visible: true, data: e })}
                   />
                 ))
               )}
@@ -80,7 +81,7 @@ const Products = () => {
       <h2 className="text-lg font-semibold mt-6 text-center text-gray-700">
         Manage Your Products Efficiently
       </h2>
-      <HomeProductModal
+      {/* <HomeProductModal
         open={modal.visible}
         title={modal.data?.title || "title"}
         des={modal.data?.description || "description"}
@@ -90,7 +91,7 @@ const Products = () => {
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         }
         onClose={() => setModal({ visible: false })}
-      />
+      /> */}
     </div>
   );
 };

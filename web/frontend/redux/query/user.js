@@ -76,17 +76,17 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
   };
 };
 
-export const addToShopify = async (data, setLoad) => {
+export const addToShopify = async (data, load, inp, modal) => {
   // console.log(data);
-  setLoad(true);
+  load(true);
   try {
     const url = "/api/products/upload";
     const body = JSON.stringify({
       title: data.title,
       description: data.description,
-      image_url: data.images,
+      image_url: data.image_url,
       ProductId: data._id,
-      price: data.price.value,
+      price: data.price,
     });
     const response = await fetch(url, {
       method: "POST",
@@ -98,13 +98,15 @@ export const addToShopify = async (data, setLoad) => {
     console.log(body);
     const res = await response.json();
     console.log("upload", res);
-    setLoad(false);
+    load(false);
     console.log("data.images ===>", data.images);
     if (response.ok) {
+      inp("");
+      modal({ visible: false });
       toast.success(res.message);
     }
   } catch (error) {
-    setLoad(false);
+    load(false);
     console.log(error);
     toast.error("Try again letter");
   }
