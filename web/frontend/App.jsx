@@ -12,6 +12,7 @@ import { QueryProvider, PolarisProvider, Spinner } from "./components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreInfo } from "./redux/query/user";
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const App = () => {
     <Spinner />
   ) : (
     <PolarisProvider>
+      <Toaster/>
       <QueryProvider>
         <NavMenu>
           <a href="/" rel="home" />

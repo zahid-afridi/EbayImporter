@@ -108,6 +108,7 @@ const Delete = async (req, res) => {
     console.log('shopifyId:', shopifyId);
     console.log('produci:', productId);
     
+ 
    const DatabaseProdcut= await ProductModel.findByIdAndDelete({ _id: productId });
       
     if (!DatabaseProdcut) {
@@ -127,7 +128,7 @@ const Delete = async (req, res) => {
     // Delete product from MongoDB
 
     // Send success response
-    res.status(200).json({ message: "Product deleted successfully", product: DatabaseProdcut });
+    res.status(200).json({success:true, message: "Product deleted successfully",  });
 
 
   
@@ -135,12 +136,15 @@ const Delete = async (req, res) => {
   } catch (error) {
     console.error("Error during deletion:", error);
     // Handle specific Shopify errors if needed
-    if (error.response) {
-      return res.status(error.response.status).json({ message: error.response.statusText });
-    }
+    // if (error.response) {
+    //   return res.status(error.response.status).json({ message: error.response.statusText });
+    // }
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+
+
 
 
 export { GetProduct,UploadeProduct,Delete };

@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { setProductData } from "../Slices/user/productStoreSlice";
 import { UpdateStoreDetail } from "../Slices/user/UserStoreSlice";
 
@@ -61,6 +62,7 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
       const res = await response.json();
       console.log("upload", res);
       if (response.ok) {
+       
         setLoad({ show: false, id: data._id });
         dispatch(ProductApi(id, setLoad));
         setRefresh((prev) => !prev);
@@ -79,6 +81,7 @@ export const deleteApi = (data, setLoad, setRefresh) => {
   return async (dispatch) => {
     setLoad({ show: true, id: data._id });
     try {
+      console.log('frontendshopifyd',data.shopifyId)
       const response = await fetch("/api/products/delete", {
         method: "DELETE",
         headers: {
@@ -89,10 +92,12 @@ export const deleteApi = (data, setLoad, setRefresh) => {
           productId: data._id,
         }),
       });
-
+            const res=await response.json()
+            console.log(res)
       if (response.ok) {
+       alert('dlete')
         setLoad({ show: false, id: data._id });
-        dispatch(ProductApi(shopifyId, setLoad));
+        dispatch(ProductApi(data.shopifyId, setLoad));
         setRefresh((prev) => !prev);
       } else {
         setLoad({ show: false, id: data._id });
