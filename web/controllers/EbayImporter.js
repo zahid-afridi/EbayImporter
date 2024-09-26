@@ -32,12 +32,32 @@ const Productimport=async(req,res)=>{
 
         // Save the new product in the database
         await newProduct.save();
-        res.status(200).json({sucess:true ,message:"Product Fetch Successfully ",product:newProduct,
-            mainImage:product.body.mainImage
+        // res.status(200).json({
+        //     success: true,
+        //     message: "Product fetched successfully",
+        //     product: newProduct,
+        //     mainImage: product.body?.mainImage // Send the main image in the response
+        //   });
 
+            res.status(200).json({
+                success: true,
+                message: "Product fetched successfully",
+                product: {
+                    title: product.body?.title ,
+                    price: product.body?.price.value , // Combine price and currency
+                    image_url: product.body?.images , // Array of image URLs
+                    shop_id: Shop_id,
+                    product_url: product.body?.url ,
+                    description: product.body?.description , // Fallback if description is empty
+                    inShopify: false, // Default value
+                    shopifyId: null, // Default value
+            mainImage: product.body?.mainImage ,// Send the main image in the response
 
-            
-        })
+                    store: null, // Adjust if needed
+                }
+              }
+              );
+        
 
     } catch (error) {
         console.log('error',error)
