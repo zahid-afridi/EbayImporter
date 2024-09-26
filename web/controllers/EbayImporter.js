@@ -32,7 +32,12 @@ const Productimport=async(req,res)=>{
 
         // Save the new product in the database
         await newProduct.save();
-        res.status(200).json({sucess:true ,message:"Product Fetch Successfully ",product:newProduct})
+        res.status(200).json({sucess:true ,message:"Product Fetch Successfully ",product:newProduct,
+            mainImage:product.body.mainImage
+
+
+            
+        })
 
     } catch (error) {
         console.log('error',error)
