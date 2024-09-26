@@ -9,6 +9,7 @@ export const HomeProductModal = ({
   price,
   title,
   image,
+  load,
 }) => {
   return (
     <div>
@@ -19,8 +20,9 @@ export const HomeProductModal = ({
           onClose={onClose}
           title={title}
           primaryAction={{
-            content: "Add to Shopify",
-            onAction: onClose,
+            content: `${load ? "uploading..." : "Add to Shopify"}`,
+            onAction: onPrimeAction,
+            disabled: load,
           }}
         >
           <Modal.Section>

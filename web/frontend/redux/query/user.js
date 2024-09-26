@@ -54,7 +54,7 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
           title: data.title,
           description: data.description,
           image_url: data.image_url,
-          ProductId: data._id,
+
           price: data.price,
         }),
       });
@@ -62,7 +62,6 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
       const res = await response.json();
       console.log("upload", res);
       if (response.ok) {
-       
         setLoad({ show: false, id: data._id });
         dispatch(ProductApi(id, setLoad));
         setRefresh((prev) => !prev);
@@ -77,11 +76,44 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
   };
 };
 
+export const addToShopify = async (data, setLoad) => {
+  // console.log(data);
+  setLoad(true);
+  try {
+    const url = "/api/products/upload";
+    const body = JSON.stringify({
+      title: data.title,
+      description: data.description,
+      image_url: data.images,
+      ProductId: data._id,
+      price: data.price.value,
+    });
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Specify JSON format
+      },
+      body,
+    });
+    console.log(body);
+    const res = await response.json();
+    console.log("upload", res);
+    setLoad(false);
+    console.log("data.images ===>", data.images);
+    if (response.ok) {
+      toast.success(res.message);
+    }
+  } catch (error) {
+    setLoad(false);
+    console.log(error);
+    toast.error("Try again letter");
+  }
+};
 export const deleteApi = (data, setLoad, setRefresh) => {
   return async (dispatch) => {
     setLoad({ show: true, id: data._id });
     try {
-      console.log('frontendshopifyd',data.shopifyId)
+      console.log("frontendshopifyd", data.shopifyId);
       const response = await fetch("/api/products/delete", {
         method: "DELETE",
         headers: {
@@ -92,16 +124,17 @@ export const deleteApi = (data, setLoad, setRefresh) => {
           productId: data._id,
         }),
       });
-            const res=await response.json()
-            console.log(res)
+      const res = await response.json();
+      console.log(res);
       if (response.ok) {
-       toast.success(res.message)
+        toast.success(res.message);
         setLoad({ show: false, id: data._id });
         dispatch(ProductApi(data.shopifyId, setLoad));
         setRefresh((prev) => !prev);
       } else {
         setLoad({ show: false, id: data._id });
         setRefresh(false);
+        toast.success(res.message);
       }
     } catch (error) {
       setLoad({ show: false, id: data._id });

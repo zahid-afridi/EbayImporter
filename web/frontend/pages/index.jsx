@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import { HomeProductModal } from "../components";
+import { addToShopify } from "../redux/query/user";
 
 const Index = () => {
   const [load, setLoad] = useState(false);
@@ -37,8 +38,6 @@ const Index = () => {
   // }, []);
   const StoreDetail = useSelector((state) => state.StoreSlice.StoreDetail);
 
-
-
   const onBtnPress = async () => {
     setLoad(true);
     if (inputValue == "") {
@@ -54,7 +53,7 @@ const Index = () => {
         if (res.status == 200) {
           setLoad(false);
 
-          setModal({ visible: true, data: data.product.body });
+          setModal({ visible: true, data: data.product });
         }
       } catch (error) {
         setLoad(false);
@@ -71,6 +70,13 @@ const Index = () => {
     fontSize: "14px",
     color: "#fff",
   };
+  const [uploadLoad, setUploadLoad] = useState(false);
+
+  const onUpload = () => {
+    // addToShopify(modal.data, setUploadLoad);
+    console.log(modal.data?.image_url[0]);
+  };
+  console.log(modal.data?.image_url[0]);
   return (
     <div className="container center">
       <div className="container-sm home-container mt-3">
@@ -165,12 +171,14 @@ const Index = () => {
         open={modal.visible}
         title={modal.data?.title || "title"}
         des={modal.data?.description || "description"}
-        price={modal.data?.price?.value || "price"}
+        price={modal.data?.price || "price"}
         image={
-          modal.data?.mainImage ||
+          modal.data?.image_url[0] ||
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         }
+        onPrimeAction={onUpload}
         onClose={() => setModal({ visible: false })}
+        load={uploadLoad}
       />
     </div>
   );
