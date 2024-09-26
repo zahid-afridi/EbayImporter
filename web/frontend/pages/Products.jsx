@@ -13,26 +13,29 @@ const Products = () => {
   const [uploadLoad, setUploadLoad] = useState({ show: false, id: null });
   const [DeleteLoad, setDeleteLoad] = useState({ show: false, id: null });
 
-  console.log("productData", productData);
   useEffect(() => {
     dispatch(ProductApi(StoreDetail.Store_Id, setLoad));
-  }, []);
+  }, [uploadLoad.show, DeleteLoad.show]);
+  // setUploadLoad
 
   const onUpload = (data) => {
     dispatch(uploadApi(data, StoreDetail.Store_Id, setUploadLoad));
   };
   const onDelete = (data) => {
-    setLoad({ show: true, id: data.title });
+    dispatch(deleteApi(data, data.shopifyId, data._id, setDeleteLoad));
+    /*
+    setDeleteLoad({ show: true, id: data._id });
     setTimeout(() => {
-      setLoad({ show: false, id: null });
+    setDeleteLoad({ show: false, id: null });
     }, 2000);
-    // dispatch(deleteApi(data, data.shopifyId, data._id, setDeleteLoad));
+    console.log(DeleteLoad);
+    */
   };
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl mb-2 text-gray-800">Product Table</h1>
-      {load && productData.length !== 0 ? (
+      {load ? (
         <Spinner />
       ) : (
         <div className="overflow-x-auto">
@@ -50,9 +53,14 @@ const Products = () => {
               </tr>
             </thead>
             <tbody>
-              <FlatList
-                list={productData.length >= 0 ? productData : []}
-                renderItem={(e, i) => (
+              {productData.length === 0 ? (
+                <tr>
+                  <td className="text-center py-10" colSpan="4">
+                    List is empty!
+                  </td>
+                </tr>
+              ) : (
+                productData.map((e, i) => (
                   <ProductsCard
                     key={i}
                     data={e}
@@ -61,15 +69,8 @@ const Products = () => {
                     DeleteLoad={DeleteLoad}
                     onDelete={() => onDelete(e)}
                   />
-                )}
-                renderWhenEmpty={() => (
-                  <tr>
-                    <td className="text-center py-10" colSpan="4">
-                      List is empty!
-                    </td>
-                  </tr>
-                )}
-              />
+                ))
+              )}
             </tbody>
           </table>
         </div>

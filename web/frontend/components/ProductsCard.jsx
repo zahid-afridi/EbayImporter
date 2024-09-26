@@ -6,9 +6,9 @@ const ProductsCard = ({
   uploadLoad,
   DeleteLoad,
 }) => {
-  console.log("data", data);
-  console.log("DeleteLoad.id", DeleteLoad.id, data.title);
-  console.log("DeleteLoad.id == data.title", DeleteLoad.id == data.title);
+  // console.log("data", data);
+  console.log("uploadLoad.id", uploadLoad.id, data._id);
+  console.log("uploadLoad.id == data._id", uploadLoad.id === data._id);
   return (
     <tr className="hover:bg-gray-50 transition-colors duration-200">
       <td className="py-3 px-4 border-b">
@@ -36,9 +36,9 @@ const ProductsCard = ({
             <button
               className="bg-blue-600 text-white py-1 px-3 rounded-md hover:bg-blue-700 transition duration-200 shadow hover:shadow-lg text-sm"
               onClick={onUpload}
-              disabled={uploadLoad.show}
+              // disabled={uploadLoad.show}
             >
-              {uploadLoad.id == data.id && uploadLoad.show
+              {uploadLoad.id == data._id && uploadLoad.show
                 ? "Uploading..."
                 : "Upload"}
             </button>
@@ -47,9 +47,9 @@ const ProductsCard = ({
           <button
             className="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-red-700 transition duration-200 shadow hover:shadow-lg text-sm"
             onClick={onDelete}
-            disabled={DeleteLoad.show}
+            disabled={uploadLoad.show}
           >
-            {DeleteLoad.id == data.id && DeleteLoad.show
+            {DeleteLoad.id === data._id && DeleteLoad.show
               ? "Deleting..."
               : "Delete"}
           </button>

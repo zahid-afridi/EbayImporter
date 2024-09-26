@@ -73,7 +73,7 @@ export const uploadApi = (data, id, setLoad) => {
 
 export const deleteApi = (data, shopifyId, productId, setLoad) => {
   return async (dispatch) => {
-    setLoad({ show: true, id: data.title });
+    setLoad({ show: true, id: data._id });
     try {
       const response = await fetch("/api/products/delete", {
         method: "DELETE",
@@ -89,11 +89,11 @@ export const deleteApi = (data, shopifyId, productId, setLoad) => {
       const res = await response.json();
       console.log("deletepai", res);
       if (response.ok) {
-        setLoad({ show: false, id: data.title });
+        setLoad({ show: false, id: data._id });
         dispatch(ProductApi(shopifyId, setLoad));
       }
     } catch (error) {
-      setLoad({ show: false, id: data.title });
+      setLoad({ show: false, id: data._id });
       console.log("upload error:===>", error);
     }
   };
