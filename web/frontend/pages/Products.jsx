@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 const Products = () => {
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const { productData } = useSelector((state) => state.product);
   const { StoreDetail } = useSelector((state) => state.StoreSlice);
   const [modal, setModal] = useState({ visible: false, data: {} });
@@ -15,14 +16,14 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(ProductApi(StoreDetail.Store_Id, setLoad));
-  }, [uploadLoad.show, DeleteLoad.show]);
+  }, [refresh]);
   // setUploadLoad
 
   const onUpload = (data) => {
-    dispatch(uploadApi(data, StoreDetail.Store_Id, setUploadLoad));
+    dispatch(uploadApi(data, StoreDetail.Store_Id, setUploadLoad, setRefresh));
   };
   const onDelete = (data) => {
-    dispatch(deleteApi(data, data.shopifyId, data._id, setDeleteLoad));
+    dispatch(deleteApi(data, setDeleteLoad, setRefresh));
     /*
     setDeleteLoad({ show: true, id: data._id });
     setTimeout(() => {

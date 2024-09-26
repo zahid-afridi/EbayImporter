@@ -40,7 +40,7 @@ export const ProductApi = (StoreId, load) => {
   };
 };
 
-export const uploadApi = (data, id, setLoad) => {
+export const uploadApi = (data, id, setLoad, setRefresh) => {
   return async (dispatch) => {
     setLoad({ show: true, id: data._id });
     try {
@@ -63,6 +63,10 @@ export const uploadApi = (data, id, setLoad) => {
       if (response.ok) {
         setLoad({ show: false, id: data._id });
         dispatch(ProductApi(id, setLoad));
+        setRefresh((prev) => !prev);
+      } else {
+        setLoad({ show: false, id: data._id });
+        setRefresh(false);
       }
     } catch (error) {
       setLoad({ show: false, id: data._id });
@@ -71,26 +75,28 @@ export const uploadApi = (data, id, setLoad) => {
   };
 };
 
-export const deleteApi = (data, shopifyId, productId, setLoad) => {
+export const deleteApi = (data, setLoad, setRefresh) => {
   return async (dispatch) => {
     setLoad({ show: true, id: data._id });
     try {
       const response = await fetch("/api/products/delete", {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json", // Specify JSON format
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          shopifyId,
-          productId,
+          shopifyId: data.shopifyId,
+          productId: data._id,
         }),
       });
 
-      const res = await response.json();
-      console.log("deletepai", res);
       if (response.ok) {
         setLoad({ show: false, id: data._id });
         dispatch(ProductApi(shopifyId, setLoad));
+        setRefresh((prev) => !prev);
+      } else {
+        setLoad({ show: false, id: data._id });
+        setRefresh(false);
       }
     } catch (error) {
       setLoad({ show: false, id: data._id });
