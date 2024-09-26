@@ -95,7 +95,7 @@ export const deleteApi = (data, setLoad, setRefresh) => {
             const res=await response.json()
             console.log(res)
       if (response.ok) {
-       alert('dlete')
+       toast.success(res.message)
         setLoad({ show: false, id: data._id });
         dispatch(ProductApi(data.shopifyId, setLoad));
         setRefresh((prev) => !prev);
