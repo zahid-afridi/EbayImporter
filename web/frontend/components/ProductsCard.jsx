@@ -7,8 +7,8 @@ const ProductsCard = ({
   DeleteLoad,
 }) => {
   // console.log("data", data);
-  console.log("uploadLoad.id", uploadLoad.id, data._id);
-  console.log("uploadLoad.id == data._id", uploadLoad.id === data._id);
+  // console.log("uploadLoad.id", uploadLoad.id, data._id);
+  // console.log("uploadLoad.id == data._id", uploadLoad.id === data._id);
   return (
     <tr className="hover:bg-gray-50 transition-colors duration-200">
       <td className="py-3 px-4 border-b">

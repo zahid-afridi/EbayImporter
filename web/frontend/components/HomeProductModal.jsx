@@ -10,6 +10,7 @@ export const HomeProductModal = ({
   title,
   image,
   load,
+  noBtn,
 }) => {
   return (
     <div>
@@ -19,11 +20,15 @@ export const HomeProductModal = ({
           open={open}
           onClose={onClose}
           title={title}
-          primaryAction={{
-            content: `${load ? "uploading..." : "Add to Shopify"}`,
-            onAction: onPrimeAction,
-            disabled: load,
-          }}
+          primaryAction={
+            noBtn
+              ? null
+              : {
+                  content: `${load ? "uploading..." : "Add to Shopify"}`,
+                  onAction: onPrimeAction,
+                  disabled: load,
+                }
+          }
         >
           <Modal.Section>
             <div>

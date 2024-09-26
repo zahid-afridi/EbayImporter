@@ -74,8 +74,7 @@ const Index = () => {
   const [uploadLoad, setUploadLoad] = useState(false);
 
   const onUpload = () => {
-    // addToShopify(modal.data, setUploadLoad, setInputValue, setModal);
-    console.log(modal?.data);
+    addToShopify(modal.data, setUploadLoad, setInputValue, setModal);
   };
 
   return (
@@ -174,7 +173,7 @@ const Index = () => {
         des={modal.data?.description || "description"}
         price={modal.data?.price || "price"}
         image={
-          modal?.data?.mainimage ||
+          modal?.data?.mainImage ||
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         }
         onPrimeAction={onUpload}

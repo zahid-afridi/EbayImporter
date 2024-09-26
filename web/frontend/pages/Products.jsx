@@ -1,13 +1,19 @@
 import FlatList from "flatlist-react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeProductModal, ProductsCard, Spinner } from "../components";
-import { deleteApi, ProductApi, uploadApi } from "../redux/query/user";
+import {
+  addToShopify,
+  deleteApi,
+  ProductApi,
+  uploadApi,
+} from "../redux/query/user";
 import React, { useEffect, useState } from "react";
 
 const Products = () => {
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [modalLoad, setModalLoad] = useState(false);
   const { productData } = useSelector((state) => state.product);
   const { StoreDetail } = useSelector((state) => state.StoreSlice);
   const [modal, setModal] = useState({ visible: false, data: {} });
@@ -17,7 +23,11 @@ const Products = () => {
   useEffect(() => {
     dispatch(ProductApi(StoreDetail.Store_Id, setLoad));
   }, [refresh]);
-  // setUploadLoad
+
+  const [inputValue, setInputValue] = useState("");
+  const modalUpload = (data) => {
+    addToShopify(modal.data, setUploadLoad, setInputValue, setModal);
+  };
 
   const onUpload = (data) => {
     dispatch(uploadApi(data, StoreDetail.Store_Id, setUploadLoad, setRefresh));
@@ -32,7 +42,6 @@ const Products = () => {
     console.log(DeleteLoad);
     */
   };
-  console.log(modal.data);
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl mb-2 text-gray-800">Product Table</h1>
@@ -81,17 +90,22 @@ const Products = () => {
       <h2 className="text-lg font-semibold mt-6 text-center text-gray-700">
         Manage Your Products Efficiently
       </h2>
-      {/* <HomeProductModal
+      <HomeProductModal
         open={modal.visible}
         title={modal.data?.title || "title"}
-        des={modal.data?.description || "description"}
-        price={modal.data?.price?.value || "price"}
+        des={modal.data?.description}
+        price={modal.data?.price || "price"}
         image={
-          modal.data?.mainImage ||
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          // modal.data?.image_url[0] ||
+          // "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          "https://i.ebayimg.com/images/g/zb0AAOSw-hFm8NdO/s-l1600.webp"
         }
+        noBtn
+        // noBtn={modal.data?.inShopify}
+        // onPrimeAction={modalUpload}
+        // load={modalLoad}
         onClose={() => setModal({ visible: false })}
-      /> */}
+      />
     </div>
   );
 };

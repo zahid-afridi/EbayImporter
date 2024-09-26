@@ -32,7 +32,7 @@ export const ProductApi = (StoreId, load) => {
       if (response.status === 200) {
         load(false);
         // console.log("Product data form redux", data);
-        dispatch(setProductData(data.products));
+        dispatch(setProductData(data.products.reverse()));
       }
     } catch (error) {
       load(false);
@@ -77,7 +77,6 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
 };
 
 export const addToShopify = async (data, load, inp, modal) => {
-  // console.log(data);
   load(true);
   try {
     const url = "/api/products/upload";
