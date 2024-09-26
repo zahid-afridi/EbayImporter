@@ -98,7 +98,7 @@ const UploadeProduct=async(req,res)=>{
   } catch (error) {
       // If there's an error, send an error response
       console.error('upload error',error);
-      res.status(500).json({ message: "Internal Server error" });
+      res.status(500).json({ message: "Internal Server error",error: error.message });
   }
 
 }
