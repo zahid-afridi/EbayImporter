@@ -96,9 +96,8 @@ const Products = () => {
         des={modal.data?.description}
         price={modal.data?.price || "price"}
         image={
-          // modal.data?.image_url[0] ||
-          // "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-          "https://i.ebayimg.com/images/g/zb0AAOSw-hFm8NdO/s-l1600.webp"
+          modal.data?.mainImage ||
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         }
         noBtn
         // noBtn={modal.data?.inShopify}

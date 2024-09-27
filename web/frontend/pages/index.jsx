@@ -49,7 +49,7 @@ const Index = () => {
           `/api/importProduct?url=${inputValue}&&Shop_id=${StoreDetail.Store_Id}`
         );
         const data = await res.json();
-        console.log({ res, data });
+        // console.log("zahid lullu hay", data);
         if (res.status == 200) {
           setLoad(false);
 
@@ -74,7 +74,8 @@ const Index = () => {
   const [uploadLoad, setUploadLoad] = useState(false);
 
   const onUpload = () => {
-    addToShopify(modal.data, setUploadLoad, setInputValue, setModal);
+    // addToShopify(modal.data, setUploadLoad, setInputValue, setModal);
+    console.log("modal.data", modal.data);
   };
 
   return (

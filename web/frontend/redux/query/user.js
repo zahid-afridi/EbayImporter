@@ -54,7 +54,7 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
           title: data.title,
           description: data.description,
           image_url: data.image_url,
-
+          ProductId: data._id,
           price: data.price,
         }),
       });
@@ -68,6 +68,7 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
       } else {
         setLoad({ show: false, id: data._id });
         setRefresh(false);
+        toast.error(res.message);
       }
     } catch (error) {
       setLoad({ show: false, id: data._id });
@@ -96,13 +97,14 @@ export const addToShopify = async (data, load, inp, modal) => {
     });
     console.log(body);
     const res = await response.json();
-    console.log("upload", res);
     load(false);
     console.log("data.images ===>", data.images);
-    if (response.ok) {
+    if (res.status === 200) {
       inp("");
       modal({ visible: false });
       toast.success(res.message);
+    } else {
+      toast.error(res.message);
     }
   } catch (error) {
     load(false);
