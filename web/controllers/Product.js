@@ -41,6 +41,30 @@ const GetProduct = async (req, res) => {
 };
 const UploadeProduct=async(req,res)=>{
   const { title, description, image_url,ProductId,price } = req.body;
+
+  if (!title || !description || !image_url || !ProductId || !price) {
+    res.status(200).json({status:200,
+      status: 400,
+      message: `${
+        !title
+          ? "title"
+          : !description
+          ? "description"
+          : !image_url
+          ? "imagurl"
+          : !ProductId
+          ? "Product Id"
+          : !price
+          ? " Price"
+          : ""
+      } is required`
+    })
+  }
+    
+    
+    
+    
+
   try {
       // Create a new Shopify product object
       const newProduct = await new shopify.api.rest.Product({
@@ -98,6 +122,9 @@ const UploadeProduct=async(req,res)=>{
   } catch (error) {
       // If there's an error, send an error response
       console.error('upload error',error);
+         if (error.response) {
+      return res.status(error.response.status).json({ message: error.response.statusText });
+    }
       res.status(500).json({ message: "Internal Server error",error: error.message });
   }
 

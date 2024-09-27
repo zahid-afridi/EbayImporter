@@ -61,16 +61,16 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
 
       const res = await response.json();
       console.log("upload", res);
-      if (response.ok) {
-        setLoad({ show: false, id: data._id });
-        dispatch(ProductApi(id, setLoad));
-        setRefresh((prev) => !prev);
-      } else {
-        setLoad({ show: false, id: data._id });
-        setRefresh(false);
-      }
+      // if (response.ok) {
+      //   setLoad({ show: false, id: data._id });
+      //   dispatch(ProductApi(id, setLoad));
+      //   setRefresh((prev) => !prev);
+      // } else {
+      //   setLoad({ show: false, id: data._id });
+      //   setRefresh(false);
+      // }
     } catch (error) {
-      setLoad({ show: false, id: data._id });
+      // setLoad({ show: false, id: data._id });
       console.log("upload error:===>", error);
     }
   };
