@@ -28,6 +28,7 @@ const Productimport=async(req,res)=>{
             inShopify: false, // Default value
             shopifyId: null, // Default value
             store: null, // Adjust if needed
+            mainImage:product.body?.mainImage
         });
 
         // Save the new product in the database

@@ -26,6 +26,9 @@ const productSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    mainImage:{
+        type:String
+    },
     shopifyId: {
         type: String,
         default: null
