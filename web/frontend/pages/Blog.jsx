@@ -8,14 +8,14 @@ export default function Blog() {
         {/* <p className="text-center text-gray-600 mb-5">Select a category to see more related content</p> */}
 
         {/* Categories */}
-        {/* <div className="flex justify-center space-x-4 mb-10">
+        <div className="flex justify-center space-x-4 mb-10">
           <button className="px-4 py-2 bg-black text-white rounded-full">All (20)</button>
           <button className="px-4 py-2 bg-gray-200 text-gray-600 rounded-full">Technology (03)</button>
           <button className="px-4 py-2 bg-gray-200 text-gray-600 rounded-full">Lifestyle (02)</button>
           <button className="px-4 py-2 bg-gray-200 text-gray-600 rounded-full">Travel (05)</button>
           <button className="px-4 py-2 bg-gray-200 text-gray-600 rounded-full">Health (09)</button>
           <button className="px-4 py-2 bg-gray-200 text-gray-600 rounded-full">Culture (01)</button>
-        </div> */}
+        </div>
 
         {/* Blog Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
