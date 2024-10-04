@@ -156,7 +156,7 @@ export default function Blog() {
           ))}
         </div>
 
-      
+        {/* Browse all posts button */}
         <div className="flex justify-center mt-10">
           <button
             className="px-6 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300"
