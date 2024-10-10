@@ -41,6 +41,7 @@ const App = () => {
           <a href="/Products">{"Products"}</a>
           <a href="/Blog">{"Blog"}</a>
           <a href="/Pricing">{"Pricing"}</a>
+          <a href="/UploadCsv">{"Upload Csv"}</a>
         </NavMenu>
         <Routes pages={pages} />
       </QueryProvider>
