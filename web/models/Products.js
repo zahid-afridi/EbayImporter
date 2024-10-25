@@ -16,6 +16,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         
     },
+    
+    productAsin: {
+        type: String
+    },
     product_url: {
         type: String
     },

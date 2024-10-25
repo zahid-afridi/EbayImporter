@@ -1,17 +1,112 @@
 import React, { useState } from 'react';
 import { FaFileCsv } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import csvtojson from 'csvtojson';
+
 
 export default function UploadCsv() {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(null)
   const [remainingProducts, setRemainingProducts] = useState(25);
-
+  const {StoreDetail} = useSelector((state) => state.StoreSlice);
+console.log('StoreDetail farzam', StoreDetail)
+console.log(StoreDetail.Store_Id)
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
+  // const handleUpload = async() => {
+  //  try {
+  //   const response = await fetch(
+  //     `/api/upload/file/?Shop_id=${StoreDetail.Store_Id}`,
+  //     {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       // body: JSON.stringify({ asin: item.asin }),
+  //     }
+  //   );
+  //   const data= await response.json()
+  //   console.log(data)
+  //  } catch (error) {
+  //   console.log(error)
+  //  }
+  // };
 
   const handleUpload = () => {
     if (file) {
-      console.log('Uploading CSV file:', file);
+      console.log('Uploading CSV file working mm:', file);
+
+    }
+
+    
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    const reader = new FileReader();
+    //setIsUploading(true);
+  
+    reader.onload = async (event) => {
+      const csvData = event.target.result;
+      try {
+        const jsonArray = await csvtojson({ noheader: true, output: 'json' }).fromString(csvData);
+        const dataToInsert = jsonArray.map((row) => ({ asin: row.field1 }));
+  
+        // Await the completion of the function to ensure state is updated afterwards
+        await fetchAsinDataInBackground(dataToInsert);
+        
+        // Reset file and country after successful upload
+        setFile(null);
+        // setCountry('');
+        
+      } catch (error) {
+        // toast.error('Error processing CSV: ' + error.message);
+        console.log( error.message)
+        //setIsUploading(false);
+      }
+    };
+  
+    reader.onerror = (error) => {
+      // toast.error('Error reading file: ' + error.message);
+      console.log( error.message)
+      //setIsUploading(false);
+    };
+  
+    reader.readAsText(file);
+
+
+
+
+  };
+
+
+  const fetchAsinDataInBackground = async (dataToInsert) => {
+    //let completedRequests = 0;
+    //const totalRequests = dataToInsert.length;
+     // Update this to reflect the number of requests you will make
+  console.log('yahata tak',dataToInsert)
+    for (const item of dataToInsert) { // Use a for..of loop to await each request
+      try {
+        const response = await fetch(
+          `/api/upload/file/?Shop_id=${StoreDetail.Store_Id}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ asin: item.asin }),
+          }
+        );
+  
+        const data = await response.json();
+        console.log('csvfiledata',data)
+        if (data.success) {
+          // toast.success(data.message, { duration: 4000 });
+          console.log(data.message)
+        } else {
+          // toast.error(data.message, { duration: 4000 });
+          alert(data.message)
+        }
+  
+      } catch (error) {
+        // toast.error('Error fetching ASIN data: ' + error.message);
+        console.log( error.message)
+      }
     }
   };
 
@@ -38,7 +133,7 @@ export default function UploadCsv() {
           onClick={() => document.getElementById('csv-upload-input').click()}
         >
           <FaFileCsv className="text-green-500 text-6xl mb-4" />
-          <label className="block text-center text-gray-500 mb-2">Click to Choose CSV File</label>
+          <label className="block text-center text-gray-500 mb-2">Click to Choose CSV File!</label>
           <input
             id="csv-upload-input"
             type="file"

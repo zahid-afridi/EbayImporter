@@ -11,6 +11,7 @@ import EabyImporterRoutes from "./routes/EbayImporter.js";
 import DbCon from "./libs/db.js";
 import StoreModel from "./models/Store.js";
 import ProductRoutes from "./routes/Product.js";
+import Csvroutes from "./routes/CsvUpload.js";
 
 
 const PORT = parseInt(
@@ -46,6 +47,7 @@ app.post(
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
+app.use('/api/upload',Csvroutes)
 app.use('/api',EabyImporterRoutes)
 app.use('/api/products',ProductRoutes)
 app.get("/api/products/count", async (_req, res) => {

@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "b006b4d48eaf28a3d15a7b077da88318"
+name = "m-ebayimport"
+handle = "m-ebayimport"
+application_url = "https://cart-else-andorra-refine.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "mubashir12121.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_content,read_locales,read_products,read_script_tags,read_themes,write_content,write_locales,write_products,write_script_tags,write_themes"
+
+[auth]
+redirect_urls = [
+  "https://cart-else-andorra-refine.trycloudflare.com/auth/callback",
+  "https://cart-else-andorra-refine.trycloudflare.com/auth/shopify/callback",
+  "https://cart-else-andorra-refine.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-10"
+
+[pos]
+embedded = false

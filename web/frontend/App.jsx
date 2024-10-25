@@ -19,7 +19,7 @@ const App = () => {
   const [load, setLoad] = useState(false);
 
   // Ensure you are accessing the correct state property
-  const StoreDetail = useSelector((state) => state.StoreSlice.StoreDetail);
+  const {StoreDetail} = useSelector((state) => state.StoreSlice);
 
   useEffect(() => {
     if (!StoreDetail) {
