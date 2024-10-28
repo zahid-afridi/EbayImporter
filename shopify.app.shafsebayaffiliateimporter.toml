@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "12ee940ff7dd4c19b469f1ff022d50b7"
+name = "shafsebayaffiliateimporter"
+handle = "shafsebayaffiliateimporter"
+application_url = "https://rna-organizer-private-beer.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "shafsamazonaffiliateimporterstore.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_content,read_locales,read_products,read_script_tags,read_themes,write_content,write_locales,write_products,write_script_tags,write_themes"
+
+[auth]
+redirect_urls = [
+  "https://rna-organizer-private-beer.trycloudflare.com/auth/callback",
+  "https://rna-organizer-private-beer.trycloudflare.com/auth/shopify/callback",
+  "https://rna-organizer-private-beer.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-10"
+
+[pos]
+embedded = false

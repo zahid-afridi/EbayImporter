@@ -48,26 +48,30 @@ import ProductModel from "../models/Products.js";
         });
        const data= response.data
 console.log("mm here is data ");
-console.log(data);
+console.log(data.body.title);
+console.log(data.body.price.value);
+console.log(data.body.images);
+console.log(data.body.description);
+console.log(data.body.mainImage);
         
 
-       const product = response.data;
+     
 
        // Save product data to the database
        const newProduct = new ProductModel({
-        title: product.body?.title ,
-        price: product.body?.price.value , // Combine price and currency
-        image_url: product.body?.images , // Array of image URLs
+        title: data.body?.title ,
+        price: data.body?.price.value , // Combine price and currency
+        image_url: data.body?.images , // Array of image URLs
         shop_id: Shop_id,
-        product_url: product.body?.url ,
-        description: product.body?.description , // Fallback if description is empty
+        product_url: data.body?.url ,
+        description: data.body?.description , // Fallback if description is empty
         inShopify: false, // Default value
         shopifyId: null, // Default value
         store: null, // Adjust if needed
-        mainImage:product.body?.mainImage
+        mainImage:data.body?.mainImage
     });
 
-         const savedProduct = await ProductModel.create(product);
+     await ProductModel.create(newProduct);
 
         // Update the CSV product count
         

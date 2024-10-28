@@ -8,10 +8,11 @@ import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import PrivacyWebhookHandlers from "./privacy.js";
 import EabyImporterRoutes from "./routes/EbayImporter.js";
-import DbCon from "./libs/db.js";
+
 import StoreModel from "./models/Store.js";
 import ProductRoutes from "./routes/Product.js";
 import Csvroutes from "./routes/CsvUpload.js";
+import DbCon from "./db/db.js";
 
 
 const PORT = parseInt(

@@ -113,7 +113,7 @@ const Index = () => {
         </div>
         <div className="center border rounded-xl mt-3 py-24 bg-white text-center">
 
-        <RemainingDays/>
+        {/* <RemainingDays/> */}
 
 
           <img className="homeImage mb-4" src={fileHomeImage} alt="Home" />
