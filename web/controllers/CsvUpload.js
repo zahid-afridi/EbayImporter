@@ -48,11 +48,11 @@ import ProductModel from "../models/Products.js";
         });
        const data= response.data
 console.log("mm here is data ");
-console.log(data.body.title);
-console.log(data.body.price.value);
-console.log(data.body.images);
-console.log(data.body.description);
-console.log(data.body.mainImage);
+// console.log(data.body.title);
+// console.log(data.body.price.value);
+// console.log(data.body.images);
+// console.log(data.body.description);
+// console.log(data.body.mainImage);
         
 
      

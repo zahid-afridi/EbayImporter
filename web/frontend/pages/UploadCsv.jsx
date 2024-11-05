@@ -49,6 +49,7 @@ export default function UploadCsv() {
           body: JSON.stringify({ asin: item.asin }),
         });
         const data = await response.json();
+        console.log('data csv',data)
         if (data.success) {
           toast.success(`Product ${item.asin} fetched successfully!`);
         } else {

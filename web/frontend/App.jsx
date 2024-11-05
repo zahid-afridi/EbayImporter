@@ -38,10 +38,10 @@ const App = () => {
       <QueryProvider>
         <NavMenu>
           <a href="/" rel="home" />
-          <a href="/Products">{"Products"}</a>
-          <a href="/Blog">{"Blog"}</a>
-          <a href="/Pricing">{"Pricing"}</a>
           <a href="/UploadCsv">{"Upload Csv"}</a>
+          <a href="/Blog">{"Blog"}</a>
+          <a href="/Products">{"Products"}</a>
+          <a href="/Pricing">{"Pricing"}</a>
         </NavMenu>
         <Routes pages={pages} />
       </QueryProvider>

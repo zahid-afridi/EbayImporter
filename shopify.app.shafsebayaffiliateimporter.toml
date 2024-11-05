@@ -3,7 +3,7 @@
 client_id = "12ee940ff7dd4c19b469f1ff022d50b7"
 name = "shafsebayaffiliateimporter"
 handle = "shafsebayaffiliateimporter"
-application_url = "https://rna-organizer-private-beer.trycloudflare.com"
+application_url = "https://vbulletin-panels-drain-tapes.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_content,read_locales,read_products,read_script_tags,read_themes,w
 
 [auth]
 redirect_urls = [
-  "https://rna-organizer-private-beer.trycloudflare.com/auth/callback",
-  "https://rna-organizer-private-beer.trycloudflare.com/auth/shopify/callback",
-  "https://rna-organizer-private-beer.trycloudflare.com/api/auth/callback"
+  "https://vbulletin-panels-drain-tapes.trycloudflare.com/auth/callback",
+  "https://vbulletin-panels-drain-tapes.trycloudflare.com/auth/shopify/callback",
+  "https://vbulletin-panels-drain-tapes.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
