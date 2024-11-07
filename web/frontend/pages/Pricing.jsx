@@ -1,7 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PriceCard from '../components/PriceCard';
+import Spinner from '../components/Spinner';
 
 export default function Pricing() {
+  const [packages,setPackages]=useState([])
+  const [loading,setLoading]=useState(false)
+  console.log('packages form state',packages)
+
+  useEffect(()=>{
+GetPackages()
+  },[])
+   
+  const GetPackages=async()=>{
+    try {
+      setLoading(true)
+      const response=await fetch('/api/packages/EbayPackage')
+      const data= await response.json()
+      console.log('packages',data)
+      setPackages(data.Pakages)
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+      
+    }
+  }
+  const handleBuy=async(id)=>{
+    alert(id)
+  }
+  if (loading) {
+    return <Spinner/>
+  }
   return (
     <section className="bg-white dark:bg-gray-900">
     <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
@@ -11,10 +40,14 @@ export default function Pricing() {
         </div>
         <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
         
-           <PriceCard Price={'$29'} title={'Best option for personal use & for your next project.'} />
-           <PriceCard Price={'$40'} title={'Best option for busig use & for your next project.'}/>
-           <PriceCard Price={'$90'} title={'Best option for personal use & for your next project.'}/>
            
+           
+          {packages && packages.map((item)=>{
+            return(
+           <PriceCard item={item} handleBuy={()=>handleBuy(item._id)} />
+
+            )
+          })}           
         
           
           

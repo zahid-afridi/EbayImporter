@@ -14,6 +14,7 @@ import ProductRoutes from "./routes/Product.js";
 import Csvroutes from "./routes/CsvUpload.js";
 import DbCon from "./db/db.js";
 import BlogRoutes from "./routes/Blogs.js";
+import Ebay_Packages_Routes from "./routes/EbayPackage.js";
 
 
 const PORT = parseInt(
@@ -53,6 +54,7 @@ app.use('/api/upload',Csvroutes)
 app.use('/api',EabyImporterRoutes)
 app.use('/api/products',ProductRoutes)
 app.use('/api/blog',BlogRoutes)
+app.use('/api/packages',Ebay_Packages_Routes)
 app.get("/api/products/count", async (_req, res) => {
   const client = new shopify.api.clients.Graphql({
     session: res.locals.shopify.session,

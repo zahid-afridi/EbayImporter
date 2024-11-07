@@ -16,11 +16,11 @@ const BillingShecma= new mongoose.Schema({
     packagename:{
         type:String
     },
-    amazonProductNumber:{
+    ebayProductNumber:{
         type:Number,
         default:0
     },
-    CsvProductNumber:{
+    csvProductNumber:{
         type:Number,
         default: 0
     }
