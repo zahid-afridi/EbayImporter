@@ -14,6 +14,14 @@ const BlogSoldSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isPublic: {
+      type: Boolean,
+      default: false,
+    },
+    billingId:{
+      type:String,
+      default:null
+    }
   },
   {
     timestamps: true,

@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PriceCard from '../components/PriceCard';
 import Spinner from '../components/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateCsvProduct, updateEbayProduct } from '../redux/Slices/user/UserStoreSlice';
 
 export default function Pricing() {
   const [packages,setPackages]=useState([])
+  const dispatch = useDispatch()
+
   const [loading,setLoading]=useState(false)
+  const StoreDetail = useSelector((state) => state.StoreSlice.StoreDetail);
+console.log('StoreDeatil',StoreDetail)
   console.log('packages form state',packages)
 
   useEffect(()=>{
@@ -25,8 +31,34 @@ GetPackages()
       
     }
   }
-  const handleBuy=async(id)=>{
-    alert(id)
+  const handleBuy=async(item)=>{
+    console.log('item',item)
+     try {   
+       const data = {
+      name: item.packageName,
+      price: item.packagePrice,
+     
+      retrun_url: `https://${StoreDetail.domain}/admin/apps/511fb4a15be08ba3e8872de396ed8f7d`
+      
+  }
+  dispatch(updateEbayProduct(item.packageEbayImportNumber))
+  dispatch(updateCsvProduct(item.packageCsvImportNumber))
+        const response= await fetch('/api/billing/userpay',{
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data)
+        })
+        const result = await response.json()
+        console.log('billginpayment',result)
+        if (response.ok) {
+            window.open(result.confirmation_url)
+        }
+      
+     } catch (error) {
+      console.log('billingpyamen erro',error)
+     }
   }
   if (loading) {
     return <Spinner/>
@@ -44,7 +76,7 @@ GetPackages()
            
           {packages && packages.map((item)=>{
             return(
-           <PriceCard item={item} handleBuy={()=>handleBuy(item._id)} />
+           <PriceCard item={item} handleBuy={()=>handleBuy(item)} />
 
             )
           })}           

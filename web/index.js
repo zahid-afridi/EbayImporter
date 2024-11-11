@@ -15,6 +15,8 @@ import Csvroutes from "./routes/CsvUpload.js";
 import DbCon from "./db/db.js";
 import BlogRoutes from "./routes/Blogs.js";
 import Ebay_Packages_Routes from "./routes/EbayPackage.js";
+import BillingModel from "./models/Billing.js";
+import BillingRoute from "./routes/Billing.js";
 
 
 const PORT = parseInt(
@@ -55,6 +57,7 @@ app.use('/api',EabyImporterRoutes)
 app.use('/api/products',ProductRoutes)
 app.use('/api/blog',BlogRoutes)
 app.use('/api/packages',Ebay_Packages_Routes)
+app.use('/api/billing',BillingRoute)
 app.get("/api/products/count", async (_req, res) => {
   const client = new shopify.api.clients.Graphql({
     session: res.locals.shopify.session,
@@ -107,6 +110,12 @@ app.get('/api/store/info', async (req, res) => {
         // If it doesn't exist, save it
         const newStore = new StoreModel({ storeName,domain,country,Store_Id });
         await newStore.save();
+       await BillingModel.create({
+          store_id:Store_Id,
+          ebayProductNumber:10,
+          csvProductNumber:10
+        })
+      
       }
 
       // Send response with existingStore only

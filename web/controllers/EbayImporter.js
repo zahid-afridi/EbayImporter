@@ -1,7 +1,7 @@
 
 import axios from "axios"
 import ProductModel from "../models/Products.js";
-
+import BillingModel from '../models/Billing.js'
 const Productimport=async(req,res)=>{
     try {
         const {url,Shop_id}= req.query;
@@ -40,7 +40,10 @@ const Productimport=async(req,res)=>{
         //     product: newProduct,
         //     mainImage: product.body?.mainImage // Send the main image in the response
         //   });
-
+             await BillingModel.findOneAndUpdate(
+                {store_id:Shop_id},
+                {$inc:{ebayProductNumber:-1}}
+             )
             res.status(200).json({
                 success: true,
                 message: "Product fetched successfully",

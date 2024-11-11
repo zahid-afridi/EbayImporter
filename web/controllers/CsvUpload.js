@@ -2,6 +2,8 @@
 import axios from "axios"
 import ProductModel from "../models/Products.js";
 
+import BillingModel from '../models/Billing.js'
+
 
 
 
@@ -72,7 +74,11 @@ console.log("mm here is data ");
     });
 
      await ProductModel.create(newProduct);
-
+         await BillingModel.findOneAndUpdate(
+            { store_id: Shop_id, csvProductNumber: { $gt: 0 } },
+            { $inc: { csvProductNumber: -1 } },
+            { new: true }
+         )
         // Update the CSV product count
         
 
