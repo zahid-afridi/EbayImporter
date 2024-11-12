@@ -3,14 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { BlogFetchApi } from "../redux/query/blog";
 import toast from "react-hot-toast";
 import Spinner from "../components/Spinner";
+import { useNavigate } from "react-router-dom";
 
 export default function Blog() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [blog, setBlog] = useState([]);
   const [soldBlogs, setSoldBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const StoreDetail = useSelector((state) => state.StoreSlice.StoreDetail);
   const [refresh, setRefresh] = useState(false);
+
 
   const getParamsFromURL = () => {
     const params = new URLSearchParams(window.location.search);
@@ -69,8 +72,9 @@ export default function Blog() {
     }
   };
 
-  const handleNavigate = () => {
-    alert("The page is not created yet");
+  const handleNavigate = (item) => {
+    navigate('/SingleBlog',{state:{data:item}})
+    // console.log('itemmmmmmmm',item)
   };
 
   const handlePurchase = async (itemdata) => {
@@ -174,7 +178,7 @@ export default function Blog() {
                           {`$${item.price}`}
                         </span>
                         <button
-                          onClick={handleNavigate}
+                          onClick={()=>handleNavigate(item)}
                           className="text-blue-500 hover:text-blue-700 font-medium"
                         >
                           Read More

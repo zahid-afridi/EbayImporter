@@ -178,12 +178,12 @@ useEffect(() => {
         </div>
       </div>
 
-      <footer className="text-center mt-4">
+      {/* <footer className="text-center mt-4">
         <span>Email us: </span>
         <a href="mailto:support@reputon.com" className="text-blue-500">
           support@reputon.com
         </a>
-      </footer>
+      </footer> */}
 
       {/* Modal for Product Preview */}
       <HomeProductModal

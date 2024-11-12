@@ -3,7 +3,7 @@
 client_id = "511fb4a15be08ba3e8872de396ed8f7d"
 name = "ebayimporter"
 handle = "ebayimporter-1"
-application_url = "https://dealers-helicopter-colleagues-rocks.trycloudflare.com"
+application_url = "https://incorporate-incorrect-garmin-analog.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "read_content,read_locales,read_products,read_script_tags,read_themes,w
 
 [auth]
 redirect_urls = [
-  "https://dealers-helicopter-colleagues-rocks.trycloudflare.com/auth/callback",
-  "https://dealers-helicopter-colleagues-rocks.trycloudflare.com/auth/shopify/callback",
-  "https://dealers-helicopter-colleagues-rocks.trycloudflare.com/api/auth/callback"
+  "https://incorporate-incorrect-garmin-analog.trycloudflare.com/auth/callback",
+  "https://incorporate-incorrect-garmin-analog.trycloudflare.com/auth/shopify/callback",
+  "https://incorporate-incorrect-garmin-analog.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
