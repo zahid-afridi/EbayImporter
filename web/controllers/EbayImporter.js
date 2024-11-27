@@ -14,7 +14,7 @@ const Productimport=async(req,res)=>{
            }
         });
         const product= response.data;
-        console.log('prdouct titlem',product )
+        // console.log('prdouct titlem',product )
         // console.log('prdouct title',product.body?.title )
         // console.log('prdouct title',product.body?.price.value )
         // console.log('prdouct title',product.body?.images )
@@ -65,7 +65,7 @@ const Productimport=async(req,res)=>{
         
 
     } catch (error) {
-        console.log('error',error)
+        console.log('ebayimport',error)
         res.status(500).json({
             status: 'error',
             message: 'Internal server error'

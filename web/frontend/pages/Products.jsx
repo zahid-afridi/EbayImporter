@@ -42,6 +42,9 @@ const Products = () => {
     console.log(DeleteLoad);
     */
   };
+  // const HandleUpdateUrl=(id)=>{
+  //   alert(id)
+  // }
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl mb-2 text-gray-800">Product Table</h1>
@@ -79,6 +82,7 @@ const Products = () => {
                     DeleteLoad={DeleteLoad}
                     onDelete={() => onDelete(e)}
                     onView={() => setModal({ visible: true, data: e })}
+                    // onUpdateUrl={()=>HandleUpdateUrl(e._id)}
                   />
                 ))
               )}

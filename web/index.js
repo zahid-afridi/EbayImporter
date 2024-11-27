@@ -17,6 +17,7 @@ import BlogRoutes from "./routes/Blogs.js";
 import Ebay_Packages_Routes from "./routes/EbayPackage.js";
 import BillingModel from "./models/Billing.js";
 import BillingRoute from "./routes/Billing.js";
+import ProductModel from "./models/Products.js";
 
 
 const PORT = parseInt(
@@ -46,10 +47,25 @@ app.post(
   shopify.processWebhooks({ webhookHandlers: PrivacyWebhookHandlers })
 );
 
+
+// customapi authenction
+
+// customapi authenction end 
 // If you are adding routes outside of the /api path, remember to
 // also add a proxy rule for them in web/frontend/vite.config.js
 
 app.use("/api/*", shopify.validateAuthenticatedSession());
+app.use("/customapi/*", authenticateUser);
+async function authenticateUser(req,res,next){
+  let shop=req.query.shop
+  let storeName= await shopify.config.sessionStorage.findSessionsByShop(shop)
+  console.log('storename for view',storeName)
+  if (shop === storeName[0].shop) {
+    next()
+  }else{
+    res.send('user not authersiozed')
+  }
+}
 
 app.use(express.json());
 app.use('/api/upload',Csvroutes)
@@ -73,6 +89,30 @@ app.get("/api/products/count", async (_req, res) => {
 
   res.status(200).send({ count: countData.data.productsCount.count });
 });
+
+
+// view on ebay api
+app.get('/customapi/viewonebay/:id', async (req, res) => {
+  try {
+    const shopifyId = req.params.id; // Capture shopifyId from URL
+    const product = await ProductModel.findOne({ shopifyId: shopifyId });
+
+    // Check if the product exists
+    if (!product) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+
+    // If product is found, send it as a response
+    res.status(200).json({ success: true, data: product });
+  } catch (error) {
+    console.error('viewoneebay error:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+
+
+
 
 app.post("/api/products", async (_req, res) => {
   let status = 200;
@@ -129,6 +169,12 @@ app.get('/api/store/info', async (req, res) => {
   }
 });
 // store info api end
+
+
+
+
+
+
 
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { fileHomeImage } from "../assets";
 import { Button, Stack } from "@mui/material";
 import {useNavigate} from 'react-router-dom'
-import {
-  SettingsOutlined,
-  BatchPredictionOutlined,
-  HelpOutlineOutlined,
-  ChatOutlined,
-} from "@mui/icons-material";
+// import {
+//   SettingsOutlined,
+//   BatchPredictionOutlined,
+//   HelpOutlineOutlined,
+//   ChatOutlined,
+// } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeProductModal } from "../components";
-import RemainingDays from "../components/RemainingDays";
+
 
 const Index = () => {
   const navigate=useNavigate()

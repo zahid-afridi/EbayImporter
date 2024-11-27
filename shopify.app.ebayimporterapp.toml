@@ -1,15 +1,18 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "511fb4a15be08ba3e8872de396ed8f7d"
-name = "ebayimporter"
-handle = "ebayimporter-1"
-application_url = "https://transcripts-mongolia-arrange-contributing.trycloudflare.com"
+client_id = "1354cfff91f5e6d65d50d36853a7e48a"
+application_url = "https://selective-trinity-appeared-amendments.trycloudflare.com"
 embedded = true
+name = "ebayimporterapp"
+handle = "ebayimporterapp"
 
 [build]
 automatically_update_urls_on_dev = true
 dev_store_url = "paymenttest-store.myshopify.com"
 include_config_on_deploy = true
+
+[webhooks]
+api_version = "2024-10"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
@@ -17,16 +20,13 @@ scopes = "read_content,read_locales,read_products,read_script_tags,read_themes,w
 
 [auth]
 redirect_urls = [
-  "https://transcripts-mongolia-arrange-contributing.trycloudflare.com/auth/callback",
-  "https://transcripts-mongolia-arrange-contributing.trycloudflare.com/auth/shopify/callback",
-  "https://transcripts-mongolia-arrange-contributing.trycloudflare.com/api/auth/callback"
+  "https://selective-trinity-appeared-amendments.trycloudflare.com/auth/callback",
+  "https://selective-trinity-appeared-amendments.trycloudflare.com/auth/shopify/callback",
+  "https://selective-trinity-appeared-amendments.trycloudflare.com/api/auth/callback"
 ]
 
-[webhooks]
-api_version = "2024-07"
-
 [app_proxy]
-url = "https://transcripts-mongolia-arrange-contributing.trycloudflare.com/customapi"
+url = "https://selective-trinity-appeared-amendments.trycloudflare.com/customapi"
 subpath = "proxy"
 prefix = "apps"
 

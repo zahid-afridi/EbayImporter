@@ -44,6 +44,7 @@ export const ProductApi = (StoreId, load) => {
 export const uploadApi = (data, id, setLoad, setRefresh) => {
   return async (dispatch) => {
     setLoad({ show: true, id: data._id });
+ 
     try {
       const response = await fetch("/api/products/upload", {
         method: "POST",
@@ -52,7 +53,7 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
         },
         body: JSON.stringify({
           title: data.title,
-          description: data.description,
+          description: data.description ?  data.description :"No Description" ,
           image_url: data.image_url,
           ProductId: data._id,
           price: data.price,
@@ -63,6 +64,7 @@ export const uploadApi = (data, id, setLoad, setRefresh) => {
       console.log("upload", res);
       if (response.ok) {
         setLoad({ show: false, id: data._id });
+        toast.success(res.message)
         dispatch(ProductApi(id, setLoad));
         setRefresh((prev) => !prev);
       } else {

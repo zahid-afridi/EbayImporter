@@ -91,6 +91,7 @@ const UploadeProduct = async (req, res) => {
     await newProduct.save({
       update: true,
     });
+    console.log('new product uplodaed',newProduct)
     const DatabesProduct = await ProductModel.findById({ _id: ProductId });
     if (!DatabesProduct) {
       res.status(404).json({ success: false, message: "Prodcut not Found" });
@@ -157,4 +158,50 @@ const Delete = async (req, res) => {
   }
 };
 
-export { GetProduct, UploadeProduct, Delete };
+
+const UpdateUrl = async (req, res) => {
+  try {
+    const { productId, productUrl } = req.body;
+
+    // Check if required fields are provided
+    if (!productId || !productUrl) {
+      return res.status(400).json({
+        success: false,
+        message: `${
+          !productId ? "Product ID" : "Product URL"
+        } is required`,
+      });
+    }
+
+    // Update the product URL in the database
+    const updatedProduct = await ProductModel.findByIdAndUpdate(
+      productId,
+      { product_url:productUrl },
+      { new: true } // Return the updated document
+    );
+
+    // If the product doesn't exist
+    if (!updatedProduct) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    // Send a success response
+    res.status(200).json({
+      success: true,
+      message: "Product URL updated successfully",
+      product: updatedProduct,
+    });
+  } catch (error) {
+    console.error("Error updating product URL:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+export { GetProduct, UploadeProduct, Delete,UpdateUrl };
